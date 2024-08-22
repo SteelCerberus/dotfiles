@@ -2,7 +2,7 @@ local opt = vim.opt
 
 opt.termguicolors = true
 opt.number = true
-opt.mouse = 'a'
+opt.mouse = ''  -- don't want mouse
 
 -- Doesn't show mode in status bar
 opt.showmode = false
