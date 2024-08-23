@@ -3,3 +3,4 @@
 .config/google-chrome/
 .config/go/
 .config/systemd/
+go/

@@ -17,8 +17,8 @@
           "properties": {
             "style": "folder"
           },
-          "background": "#3E4966",
-          "foreground": "#7399E4",
+          "background": "#303446",
+          "foreground": "#89B4FA",
           "Text": "",
           "Duration": 0,
           "NameLength": 0
@@ -32,8 +32,8 @@
             "fetch_stash_count": true,
             "fetch_upstream_icon": true
           },
-          "background": "#3E4966",
-          "foreground": "#b393e9",
+          "background": "#303446",
+          "foreground": "#BB9AF7",
           "Text": "",
           "Duration": 0,
           "NameLength": 0
@@ -43,7 +43,7 @@
           "style": "powerline",
           "powerline_symbol": "\ue0b0",
           "template": " \ue235 {{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }} {{ end }}{{ .Full }}{{ end }} ",
-          "background": "#3E4966",
+          "background": "#303446",
           "foreground": "#18354c",
           "Text": "",
           "Duration": 0,
@@ -54,7 +54,7 @@
           "style": "powerline",
           "powerline_symbol": "\ue0b0",
           "template": " \uf0e7 ",
-          "background": "#3E4966",
+          "background": "#303446",
           "foreground": "#18354c",
           "Text": "",
           "Duration": 0,

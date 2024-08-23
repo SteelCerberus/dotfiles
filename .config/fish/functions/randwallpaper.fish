@@ -8,6 +8,7 @@ function randwallpaper -d "Selects a random wallpaper in the given directory"
 
     set -l potentials $(find $dir -type f -not -name $active_file)
     set -l rand $(random choice $potentials)
+    echo $rand
 
     hyprctl hyprpaper unload all -q
     hyprctl hyprpaper preload $rand -q

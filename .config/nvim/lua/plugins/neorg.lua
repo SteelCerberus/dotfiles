@@ -6,9 +6,11 @@ return {
         require('neorg').setup {
             load = {
                 ["core.defaults"] = {},
+                ["core.highlights"] = {},
                 ["core.integrations.treesitter"] = {},
                 ["core.autocommands"] = {},
                 ["core.esupports.indent"] = {},
+                ["core.summary"] = {},
                 ["core.concealer"] = {
                     config = {
                         folds = false,

@@ -16,10 +16,10 @@ set('n', '<CR>', "<Cmd>call append(line('.'),     repeat([''], v:count1))<CR>")
 
 -- Easier way of navigating to the start and end
 set({"n", "x"}, "<leader>l", "g_")
-set({"n", "x"}, "<leader>h", "^")
+set({"n", "x"}, "<leader>h", " ^")
+set("n", "<leader><leader>", "a <Esc>h")
 
 -- Keeps visual selected when indenting
--- THIS MAY NOT BE NEEDED AFTER mini.move
 set("x", "<", "<gv")
 set("x", ">", ">gv")
 
