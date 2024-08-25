@@ -48,22 +48,20 @@ map gf :push %touch<space>
 cmd trash %trash-put $fx
 map D trash
 
-
-cmd othertest echo bye
-cmd test ${{ echo hi; othertest }}
-
-map <c-y> :test
+cmd yank-file $printf '%s' "$f" | wl-copy
+map <c-c> yank-file
+map <c-y> yank-file
 
 cmd fzf_search ${{
     cmd="rg --column --line-number --no-heading --color=always --smart-case"
-    # TODO: This sendcmd is broken
+    # TODO: This sendcmd is broken for files with spaces, backslashes, and quotes
     sendcmd="send $id select \"$(printf "%s" {1} | sed 's/\\/\\\\/g;s/"/\\"/g')\""
 
     fzf --ansi --disabled --layout=reverse --header="Search in files" --delimiter=: \
         --bind="start:reload([ -n {q} ] && $cmd -- {q} || true)" \
         --bind="change:reload([ -n {q} ] && $cmd -- {q} || true)" \
         --bind="enter:become(lf -remote \"$sendcmd\")" \
-        --preview='~/.config/lf/cleaner; ~/.config/lf/previewer {1} "$FZF_PREVIEW_COLUMNS" "$FZF_PREVIEW_LINES" "$FZF_PREVIEW_LEFT" "$FZF_PREVIEW_TOP"' \
+        --preview='~/.config/lf/cleaner.fish; ~/.config/lf/previewer.fish {1} "$FZF_PREVIEW_COLUMNS" "$FZF_PREVIEW_LINES" "$FZF_PREVIEW_LEFT" "$FZF_PREVIEW_TOP"' \
 }}
 map gs :fzf_search
 

@@ -12,9 +12,9 @@ fish_add_path ~/go/bin
 set -x MANPAGER "nvim +Man!"
 
 # Use nvim as editor
-set VISUAL nvim
-set EDITOR nvim
-set OPENER nvim
+set -gx VISUAL nvim
+set -gx EDITOR nvim
+set -gx OPENER nvim
 
 # Use vi mode
 fish_vi_key_bindings

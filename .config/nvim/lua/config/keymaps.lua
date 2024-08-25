@@ -10,6 +10,9 @@ set("n", "0", "g0")
 set("i", "jj", "<Esc>")
 set("i", "jk", "<Esc>")
 
+-- Insert semicolon at end of line (useful when nvim-autopairs inserts parenthesis)
+set("i", ";;", "<Esc>mzA;<Esc>`za")
+
 -- Enter creates new line below, Shift + Enter creates new line above
 set('n', '<S-CR>', "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>")
 set('n', '<CR>', "<Cmd>call append(line('.'),     repeat([''], v:count1))<CR>")
@@ -38,12 +41,16 @@ set("n", "C", '"_C')
 set("n", "cc", '"_cc')
 set("x", "c", '"_c')
 
+set("n", "<c-h>", "<c-w>h", {desc = "Switch between windows"})
+set("n", "<c-j>", "<c-w>j", {desc = "Switch between windows"})
+set("n", "<c-k>", "<c-w>k", {desc = "Switch between windows"})
+set("n", "<c-l>", "<c-w>l", {desc = "Switch between windows"})
+
 -- Remove trailing whitespace characters
 set('n', '<leader>wt', [[:%s/\s\+$//e<cr>]])
 
--- Easily go to beginning and end in insert mode
-set("i", "<C-A>", "<HOME>")
-set("i", "<C-E>", "<END>")
+-- Copy absolute path of current buffer
+set("n", "<Leader>c", ":call setreg('+', expand('%:p'))<CR>", { silent = true})
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`

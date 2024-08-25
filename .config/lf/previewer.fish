@@ -15,6 +15,6 @@ switch (file -Lb --mime-type $file)
 case "image/*"
     draw $file
 case '*'
-    pistol $file
+    bat --paging=never --color=always $file
 end
 
