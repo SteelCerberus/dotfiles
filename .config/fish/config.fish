@@ -9,12 +9,15 @@ fish_add_path ~/.local/bin
 fish_add_path ~/go/bin
 
 # Use nvim for reading man pages
-set -x MANPAGER "nvim +Man!"
+set -gx MANPAGER "nvim +Man!"
 
 # Use nvim as editor
 set -gx VISUAL nvim
 set -gx EDITOR nvim
 set -gx OPENER nvim
+
+# Disable the (venv) before the prompt. Using a custom oh-my-posh module for this.
+set -gx VIRTUAL_ENV_DISABLE_PROMPT 1
 
 # Use vi mode
 fish_vi_key_bindings

@@ -44,7 +44,12 @@
           "powerline_symbol": "\ue0b0",
           "template": " \ue235 {{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }} {{ end }}{{ .Full }}{{ end }} ",
           "background": "#303446",
-          "foreground": "#18354c",
+          "foreground": "#7DCFFF",
+          "properties": {
+            "display_mode": "environment",
+            "fetch_virtual_env": true,
+            "home_enabled": true
+          },
           "Text": "",
           "Duration": 0,
           "NameLength": 0

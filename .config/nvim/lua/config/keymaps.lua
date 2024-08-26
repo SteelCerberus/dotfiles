@@ -14,9 +14,15 @@ set("i", "jk", "<Esc>")
 set("i", ";;", "<Esc>mzA;<Esc>`za")
 
 -- Enter creates new line below, Shift + Enter creates new line above
-set('n', '<S-CR>', "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>")
 set('n', '<CR>', "<Cmd>call append(line('.'),     repeat([''], v:count1))<CR>")
 
+set('n', '<S-CR>', "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>")
+vim.api.nvim_create_autocmd("Filetype", {
+    pattern = "norg",
+    callback = function()
+        vim.keymap.set("n", "<S-CR>", "<Plug>(neorg.esupports.hop.hop-link)", { buffer = true })
+    end,
+})
 -- Easier way of navigating to the start and end
 set({"n", "x"}, "<leader>l", "g_")
 set({"n", "x"}, "<leader>h", " ^")

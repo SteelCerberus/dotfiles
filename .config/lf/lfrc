@@ -42,7 +42,7 @@ map p :paste; clear
 # Shortcuts
 map gc :set hidden; cd ~/.config/
 map c :set hidden; cd ~/.config/
-map gt :set hidden; cd ~/.local/share/Trash/files
+map gt :set hidden; cd "/mnt/drive/Documents/Georgia Tech/"
 map gf :push %touch<space>
 
 cmd trash %trash-put $fx
