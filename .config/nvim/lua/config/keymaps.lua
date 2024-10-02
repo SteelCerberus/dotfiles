@@ -13,9 +13,10 @@ set("i", "jk", "<Esc>")
 -- Insert semicolon at end of line (useful when nvim-autopairs inserts parenthesis)
 set("i", ";;", "<Esc>mzA;<Esc>`za")
 
--- Enter creates new line below, Shift + Enter creates new line above
+-- Enter creates new line below
 set('n', '<CR>', "<Cmd>call append(line('.'),     repeat([''], v:count1))<CR>")
 
+-- Use Shift + Enter as insert new line above; use as open link in Neorg files
 set('n', '<S-CR>', "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>")
 vim.api.nvim_create_autocmd("Filetype", {
     pattern = "norg",
@@ -23,6 +24,7 @@ vim.api.nvim_create_autocmd("Filetype", {
         vim.keymap.set("n", "<S-CR>", "<Plug>(neorg.esupports.hop.hop-link)", { buffer = true })
     end,
 })
+
 -- Easier way of navigating to the start and end
 set({"n", "x"}, "<leader>l", "g_")
 set({"n", "x"}, "<leader>h", " ^")
@@ -57,6 +59,7 @@ set('n', '<leader>wt', [[:%s/\s\+$//e<cr>]])
 
 -- Copy absolute path of current buffer
 set("n", "<Leader>c", ":call setreg('+', expand('%:p'))<CR>", { silent = true})
+set("n", "<c-c>", ":call setreg('+', expand('%:p'))<CR>", { silent = true})
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`

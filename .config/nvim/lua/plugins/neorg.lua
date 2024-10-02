@@ -22,7 +22,7 @@ return {
         ["core.dirman"] = {
           config = {
             workspaces = {
-              cs3210 = "~/gateh/cs3210",
+              cs3210 = "~/gatech/cs3210",
               cs4262 = "~/gatech/cs4262",
               econ2105 = "~/gatech/econ2105",
             },

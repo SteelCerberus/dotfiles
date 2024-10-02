@@ -20,8 +20,8 @@ map <enter> shell
 # show the result of execution of previous commands
 map ` !true
 
-# Opens in neovim
-cmd open $set -f; fish -c "v $fx"
+# Opens in full-terminal neovim if a text file; else uses xdg-open
+cmd open $set -f; file="$fx"; file -i "$file" | grep -q "text/*" && fish -c "v $fx" || xdg-open "$file"
 
 # mkdir command. See wiki if you want it to select created dir
 map a :push %mkdir<space>
