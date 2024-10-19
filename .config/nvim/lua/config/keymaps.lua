@@ -10,6 +10,10 @@ set("n", "0", "g0")
 set("i", "jj", "<Esc>")
 set("i", "jk", "<Esc>")
 
+-- Typing ` is harder than typing ', and ` is more useful
+set("n", "'", "`")
+
+set("i", "jk", "<Esc>")
 -- Insert semicolon at end of line (useful when nvim-autopairs inserts parenthesis)
 set("i", ";;", "<Esc>mzA;<Esc>`za")
 

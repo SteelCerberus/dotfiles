@@ -21,7 +21,7 @@ map <enter> shell
 map ` !true
 
 # Opens in full-terminal neovim if a text file; else uses xdg-open
-cmd open $set -f; file="$fx"; file -i "$file" | grep -q "text/*" && fish -c "v $fx" || xdg-open "$file"
+cmd open $set -f; file="$fx"; file -i "$file" | grep -q "text/*" && fish -c "v $fx" || xdg-open "$file" > /dev/null 2>&1 || fish -c "v $fx"
 
 # mkdir command. See wiki if you want it to select created dir
 map a :push %mkdir<space>

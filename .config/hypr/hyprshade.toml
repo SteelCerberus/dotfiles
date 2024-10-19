@@ -2,4 +2,4 @@
 name = "blue-light-filter"
 default = true
 [shaders.config]
-strength = 1.0
+strength = 0.4
