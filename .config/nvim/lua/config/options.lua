@@ -2,7 +2,7 @@ local opt = vim.opt
 
 opt.termguicolors = true
 opt.number = true
-opt.mouse = ''  -- don't want mouse
+opt.mouse = 'a'  -- set to 'a' for mouse, '' for no mouse
 
 -- Doesn't show mode in status bar
 opt.showmode = false
@@ -26,6 +26,8 @@ opt.smartindent = true
 -- opt.shiftwidth = 4
 -- opt.tabstop = 4
 -- opt.softtabstop = 4
+
+opt.signcolumn = 'yes:1'
 
 -- Show whitespace
 opt.list = true

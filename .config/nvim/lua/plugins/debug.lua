@@ -36,7 +36,7 @@ return {
         function()
           require("dapui").eval(nil, { enter = true })
         end,
-        desc = '[D]ebug until [c]ursor'
+        desc = '[D]ebug [E]valuate'
       },
       {
         '<leader>dB',
@@ -53,7 +53,10 @@ return {
     local dap = require 'dap'
     local dapui = require 'dapui'
     dapui.setup()
-
+    dap.defaults.fallback.external_terminal = {
+        command = '/usr/bin/kitty';
+        args = {'--hold'};
+    }
     require('mason-nvim-dap').setup {
       automatic_installation = true,
       -- You can provide additional configuration to the handlers,

@@ -1,5 +1,5 @@
-[[shaders]]
+[[shades]]
 name = "blue-light-filter"
 default = true
-[shaders.config]
-strength = 0.4
+[shades.config]
+strength = 0.7
