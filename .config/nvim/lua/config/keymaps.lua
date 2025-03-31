@@ -13,7 +13,6 @@ set("i", "jk", "<Esc>")
 -- Typing ` is harder than typing ', and ` is more useful
 set("n", "'", "`")
 
-set("i", "jk", "<Esc>")
 -- Insert semicolon at end of line (useful when nvim-autopairs inserts parenthesis)
 set("i", ";;", "<Esc>mzA;<Esc>`za")
 
@@ -32,6 +31,8 @@ vim.api.nvim_create_autocmd("Filetype", {
 -- Easier way of navigating to the start and end
 set({"n", "x"}, "<leader>l", "g_")
 set({"n", "x"}, "<leader>h", " ^")
+
+-- Space space to insert a space in normal mode
 set("n", "<leader><leader>", "a <Esc>h")
 
 -- Keeps visual selected when indenting
@@ -40,6 +41,9 @@ set("x", ">", ">gv")
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+
+-- View error message in floating window
+set("n", "<leader>e", "<Cmd>lua vim.diagnostic.open_float()<CR>")
 
 set('x', 'g/', '<esc>/\\%V', { silent = false, desc = 'Search inside visual selection' })
 
@@ -57,6 +61,10 @@ set("n", "<c-h>", "<c-w>h", {desc = "Switch between windows"})
 set("n", "<c-j>", "<c-w>j", {desc = "Switch between windows"})
 set("n", "<c-k>", "<c-w>k", {desc = "Switch between windows"})
 set("n", "<c-l>", "<c-w>l", {desc = "Switch between windows"})
+set("n", "<c-s-l>", "<cmd>vertical resize +3<cr>")
+set("n", "<c-s-h>", "<cmd>vertical resize -3<cr>")
+set("n", "<c-s-j>", "<cmd>resize +3<cr>")
+set("n", "<c-s-k>", "<cmd>resize -3<cr>")
 
 -- Remove trailing whitespace characters
 set('n', '<leader>wt', [[:%s/\s\+$//e<cr>]])

@@ -25,6 +25,10 @@ return {
               cs3210 = "~/gatech/cs3210",
               cs4262 = "~/gatech/cs4262",
               econ2105 = "~/gatech/econ2105",
+              econ2106 = "~/gatech/econ2106",
+              cs4240 = "~/gatech/cs4240",
+              cs3220 = "~/gatech/cs3220",
+              cs3235 = "~/gatech/cs3235",
             },
             index = "index.norg",
           }

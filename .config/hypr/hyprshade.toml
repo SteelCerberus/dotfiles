@@ -2,4 +2,4 @@
 name = "blue-light-filter"
 default = true
 [shades.config]
-strength = 0.7
+strength = 0.3
