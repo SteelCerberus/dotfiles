@@ -52,6 +52,8 @@ cmd yank-file $printf '%s' "$f" | wl-copy
 map <c-c> yank-file
 map <c-y> yank-file
 
+cmd d :delete
+
 cmd fzf_search ${{
     cmd="rg --column --line-number --no-heading --color=always --smart-case"
     # TODO: This sendcmd is broken for files with spaces, backslashes, and quotes

@@ -28,9 +28,8 @@ vim.api.nvim_create_autocmd("Filetype", {
     end,
 })
 
--- Easier way of navigating to the start and end
-set({"n", "x"}, "<leader>l", "g_")
-set({"n", "x"}, "<leader>h", " ^")
+-- I just find this more natural
+set({"n", "x"}, "$", "g_")
 
 -- Space space to insert a space in normal mode
 set("n", "<leader><leader>", "a <Esc>h")
