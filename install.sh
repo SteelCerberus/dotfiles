@@ -63,12 +63,14 @@ efibootmgr --create --disk "$EFIDISK" --part "$EFIPART" --label "UEFI Shell" --l
 echo "Created boot entry for UEFI Shell"
 
 # Backup Secure Boot variables
+EXISTING_KEYS=0
 for EFIVAR in PK KEK db dbx ; do 
     if efi-readvar -v $EFIVAR -o old_${EFIVAR}.esl | grep -q "has no entries"; then
         rm old_${EFIVAR}.esl
     else
         chown $SUDO_USER old_${EFIVAR}.esl
         echo "Saved EFI Secure Boot variable $EFIVAR to old_${EFIVAR}.esl"
+        EXISTING_KEYS=1
     fi
 done
 
@@ -85,7 +87,7 @@ fi
 # mkinitcpio looks in the /etc/cmdline.d directory for the params
 # Since rEFInd is already installed, we can copy its kernel parameters
 mkdir -p /etc/cmdline.d
-head –lines 1 /boot/refind_linux.conf | cut -d '"' -f 4 > /etc/cmdline.d/root.conf
+head –n 1 "/boot/refind_linux.conf" | cut -d '"' -f 4 > /etc/cmdline.d/root.conf
 
 # The EFI partition is mounted at /boot
 # We need to create the /EFI/boot directory in the EFI partition to place bootx64.efi as a fallback
@@ -113,11 +115,11 @@ efibootmgr --create --disk "$EFIDISK" --part "$EFIPART" --label "CachyOS UKI" --
 echo "Created boot entry for CachyOS UKI"
 
 # Clean up the now unnecessary files
-rm "/boot/vmlinuz*" "/boot/intel-ucode.img" "/boot/initramfs-*.img"
+rm /boot/vmlinuz-linux-cachyos /boot/intel-ucode.img /boot/initramfs-linux-cachyos.img
 
 # Delete all traces of rEFInd
 efibootmgr -B -b "$(efibootmgr | grep -i refind | cut -f 1 -d ' ' | cut -f 1 -d '*' | cut -f 2 -d 't')"
-pacman -Rns refind-btrfs refind
+pacman -Rns --noconfirm refind-btrfs refind
 rm -rf /boot/refind_linux.conf /boot/EFI/refind
 
 ###############################################################################
@@ -125,7 +127,11 @@ rm -rf /boot/refind_linux.conf /boot/EFI/refind
 ###############################################################################
 
 sbctl create-keys
-sbctl enroll-keys --microsoft --firmware-builtin
+if [[ $EXISTING_KEYS = 1 ]]; then
+    sbctl enroll-keys --microsoft --firmware-builtin
+else
+    sbctl enroll-keys --microsoft
+fi
 
 for EFIBINARY in /boot/btrfs.efi /boot/shellx64.efi /boot/EFI/boot/cachyos.efi; do
     sbctl sign -s "$EFIBINARY"
