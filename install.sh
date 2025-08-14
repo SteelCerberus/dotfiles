@@ -87,7 +87,8 @@ fi
 # mkinitcpio looks in the /etc/cmdline.d directory for the params
 # Since rEFInd is already installed, we can copy its kernel parameters
 mkdir -p /etc/cmdline.d
-head –n 1 "/boot/refind_linux.conf" | cut -d '"' -f 4 > /etc/cmdline.d/root.conf
+read -r REFIND_CONF < /boot/refind_linux.conf
+echo "$REFIND_CONF" | cut -d '"' -f 4 > /etc/cmdline.d/root.conf
 
 # The EFI partition is mounted at /boot
 # We need to create the /EFI/boot directory in the EFI partition to place bootx64.efi as a fallback
