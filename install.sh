@@ -21,15 +21,30 @@ pacman -S \
     sbctl \
     wget \
     efibootmgr \
+    jq \
+    parted \
 
 ###############################################################################
 ### Prepare for Secure Boot
 ###############################################################################
 
-EFIDEV="$(lsblk --raw | grep '/boot$' | cut -d ' ' -f 1)"
-EFIDISK="$(echo $EFIDEV | cut -d 'p' -f 1)"
-EFIPART="$(echo $EFIDEV | cut -d 'p' -f 2)"
-echo "Using EFI device $EFIDEV"
+# https://unix.stackexchange.com/a/768774
+EFIDISK="$(lsblk --json --tree --inverse |
+    jq -r '
+.blockdevices[] |
+    if .mountpoints[] == "/boot" then
+        .. |
+            if .children? then
+                empty
+            else
+                .name // empty
+            end
+    else
+        empty
+    end
+')"
+EFIPART="$(parted /dev/${EFIDISK} print | grep 'boot, esp' | cut -d ' ' -f 2)"
+echo "Detected EFI disk: $EFIDISK, EFI partition: $EFIPART"
 
 echo "Downloading BTRFS UEFI driver to /boot/btrfs.efi"
 wget -q https://github.com/maharmstone/btrfs-efi/releases/download/20230328/btrfs-amd64.efi
