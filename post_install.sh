@@ -27,6 +27,9 @@ fc-cache -f -v
 
 rm ~/.zshrc
 
+mkdir -p /mnt/drive/
+mkdir -p /mnt/netshare/
+
 # Big install
 sudo pacman -S --noconfirm --needed \
     7zip \
@@ -83,6 +86,8 @@ sudo pacman -S --noconfirm --needed \
     neovim \
     net-tools \
     networkmanager \
+    nix \
+    npm \
     okular \
     openssh \
     pkgfile \
