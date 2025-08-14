@@ -1,0 +1,101 @@
+#!/usr/bin/env bash
+
+paru -Syu
+
+# AUR packages
+paru -S --sudoloop --needed \
+    auto-cpufreq \
+    google-chrome \
+    rr
+
+sudo pacman -S --noconfirm --needed \
+    7zip \
+    at \
+    base \
+    base-devel \
+    bat \
+    blueman \
+    bluez \
+    brightnessctl \
+    btop \
+    cmatrix \
+    cronie \
+    docker \
+    duf \
+    edk2-shell \
+    efibootmgr \
+    efitools \
+    eza \
+    fastfetch \
+    fd \
+    fish \
+    fisher \
+    fuse3 \
+    fzf \
+    gdb \
+    gdu \
+    git \
+    gnome-keyring \
+    gtk3 \
+    hyprcursor \
+    hyprland \
+    hyprlang \
+    hyprlock \
+    hyprpaper \
+    hyprpicker \
+    hyprshot \
+    hyprsunset \
+    hyprutils \
+    hyprwayland-scanner \
+    intel-ucode \
+    keepassxc \
+    kitty \
+    lib32-gcc-libs \
+    lib32-glibc \
+    libreoffice-fresh \
+    linux \
+    linux-firmware \
+    linux-headers \
+    luarocks \
+    man-db \
+    man-pages \
+    neovim \
+    net-tools \
+    networkmanager \
+    okular \
+    openssh \
+    otf-apple-fonts \
+    pipewire \
+    pipewire-alsa \
+    pipewire-jack \
+    pipewire-pulse \
+    pkgfile \
+    polkit-kde-agent \
+    python-pip \
+    qalculate-qt \
+    qemu-full \
+    qemu-user \
+    qt5-wayland \
+    qt6-wayland \
+    rclone \
+    reflector \
+    ripgrep \
+    rofi-wayland \
+    sbctl \
+    swaync \
+    texinfo \
+    tldr \
+    tmatrix \
+    trash-cli \
+    valgrind \
+    virt-manager \
+    virt-viewer \
+    virtualbox \
+    wget \
+    wine \
+    wireplumber \
+    wireshark-qt \
+    wl-clipboard \
+    wtype \
+    xdg-desktop-portal-hyprland
+

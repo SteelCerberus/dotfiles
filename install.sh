@@ -12,7 +12,7 @@ fi
 ### Install necessary dependencies
 ###############################################################################
 
-echo "Installing packages"
+echo "Installing core packages"
 pacman -S \
     efitools \
     edk2-shell \

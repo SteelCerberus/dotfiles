@@ -27,19 +27,19 @@ Boot from the USB drive.
 * X-system
 * desktop integration
 * Under `some applications selection`, deselect:
-** alacritty
-** fsarchiver
-** glances
-** inxi
-** meld
-** nano-syntax-highlighting
-** pv
-** python-defusedxml
-** python-packaging
-** rsync
-** vi
-** micro
-** nano
+    * alacritty
+    * fsarchiver
+    * glances
+    * inxi
+    * meld
+    * nano-syntax-highlighting
+    * pv
+    * python-defusedxml
+    * python-packaging
+    * rsync
+    * vi
+    * micro
+    * nano
 10. Deselect whichever ucode package isn't needed under `CPU specific Microcode update packages`
 11. Deselect `Firefox and language package` and go `Next`
 12. Fill in the user info
