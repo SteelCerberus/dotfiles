@@ -4,7 +4,12 @@ set -e
 set -o pipefail
 
 if [[ $(/usr/bin/id -u) -ne 0 ]]; then
-    echo "Script must be ran as root."
+    echo "Script must be ran as root"
+    exit 1
+fi
+
+if [[ -n "$SUDO_USER" ]]; then
+    echo "Script must be ran with sudo"
     exit 1
 fi
 
@@ -59,7 +64,11 @@ echo "Created boot entry for UEFI Shell"
 
 # Backup Secure Boot variables
 for EFIVAR in PK KEK db dbx ; do 
-    efi-readvar -v $EFIVAR -o old_${EFIVAR}.esl
+    if efi-readvar -v $EFIVAR -o old_${EFIVAR}.esl | grep -q "has no entries"; then
+        rm old_${EFIVAR}.esl
+    else
+        chown $SUDO_USER old_${EFIVAR}.esl
+    fi
 done
 echo "Saved EFI Secure Boot variables to old_(PK, KEK, db, dbx).esl"
 
