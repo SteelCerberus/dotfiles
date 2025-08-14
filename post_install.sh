@@ -16,6 +16,18 @@ sudo systemctl enable --now auto-cpufreq
 sudo pacman -S --noconfirm --needed \
     cachyos-gaming-meta \
 
+# Any other before the big install
+curl -s https://ohmyposh.dev/install.sh | bash -s
+
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/FiraCode.zip
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip
+unzip FiraCode.zip -d /usr/share/fonts
+unzip JetBrainsMono.zip -d /usr/share/fonts
+fc-cache -f -v
+
+rm ~/.zshrc
+
+# Big install
 sudo pacman -S --noconfirm --needed \
     7zip \
     at \

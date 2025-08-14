@@ -2,11 +2,6 @@
 
 # Custom prompt using Oh My Posh
 oh-my-posh init fish --config ~/.config/fish/prompt.omp.json | source
-#starship init fish | source
-
-# Add to path
-fish_add_path ~/.local/bin
-fish_add_path ~/go/bin
 
 # Use nvim for reading man pages
 set -gx MANPAGER "nvim +Man!"
