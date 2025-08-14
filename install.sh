@@ -13,7 +13,7 @@ fi
 ###############################################################################
 
 echo "Installing core packages"
-pacman -S \
+pacman -S --noconfirm --needed \
     efitools \
     edk2-shell \
     intel-ucode \
@@ -29,7 +29,7 @@ pacman -S \
 ###############################################################################
 
 # https://unix.stackexchange.com/a/768774
-EFIDISK="$(lsblk --json --tree --inverse |
+EFIDISK="/dev/$(lsblk --json --tree --inverse |
     jq -r '
 .blockdevices[] |
     if .mountpoints[] == "/boot" then
@@ -43,7 +43,7 @@ EFIDISK="$(lsblk --json --tree --inverse |
         empty
     end
 ')"
-EFIPART="$(parted /dev/${EFIDISK} print | grep 'boot, esp' | cut -d ' ' -f 2)"
+EFIPART="$(parted ${EFIDISK} print | grep 'boot, esp' | cut -d ' ' -f 2)"
 echo "Detected EFI disk: $EFIDISK, EFI partition: $EFIPART"
 
 echo "Downloading BTRFS UEFI driver to /boot/btrfs.efi"
