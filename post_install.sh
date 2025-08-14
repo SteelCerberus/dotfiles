@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+set -e
+set -o pipefail
+
 paru -Syu
 
 # AUR packages
@@ -20,7 +23,6 @@ sudo pacman -S --noconfirm --needed \
     base-devel \
     bat \
     blueman \
-    bluez \
     brightnessctl \
     btop \
     cmatrix \
@@ -39,6 +41,7 @@ sudo pacman -S --noconfirm --needed \
     fzf \
     gdb \
     gdu \
+    ghidra \
     git \
     gnome-keyring \
     gtk3 \
@@ -55,6 +58,7 @@ sudo pacman -S --noconfirm --needed \
     intel-ucode \
     keepassxc \
     kitty \
+    lf \
     lib32-gcc-libs \
     lib32-glibc \
     libreoffice-fresh \
@@ -69,10 +73,6 @@ sudo pacman -S --noconfirm --needed \
     networkmanager \
     okular \
     openssh \
-    pipewire \
-    pipewire-alsa \
-    pipewire-jack \
-    pipewire-pulse \
     pkgfile \
     polkit-kde-agent \
     python-pip \
@@ -93,10 +93,8 @@ sudo pacman -S --noconfirm --needed \
     valgrind \
     virt-manager \
     virt-viewer \
-    virtualbox \
     wget \
     wine \
-    wireplumber \
     wireshark-qt \
     wl-clipboard \
     wtype \
