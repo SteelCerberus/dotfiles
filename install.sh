@@ -8,7 +8,7 @@ if [[ $(/usr/bin/id -u) -ne 0 ]]; then
     exit 1
 fi
 
-if [[ -n "$SUDO_USER" ]]; then
+if [[ ! -n "$SUDO_USER" ]]; then
     echo "Script must be ran with sudo"
     exit 1
 fi
@@ -68,9 +68,9 @@ for EFIVAR in PK KEK db dbx ; do
         rm old_${EFIVAR}.esl
     else
         chown $SUDO_USER old_${EFIVAR}.esl
+        echo "Saved EFI Secure Boot variable $EFIVAR to old_${EFIVAR}.esl"
     fi
 done
-echo "Saved EFI Secure Boot variables to old_(PK, KEK, db, dbx).esl"
 
 if ! sbctl status | grep "Setup Mode" | grep -q "Enabled"; then
     echo "Not in Setup Mode. Boot to firmware with 'systemctl reboot --firmware-setup' and enter Setup Mode (clear Platform Key and disable Secure Boot)."
@@ -84,7 +84,7 @@ fi
 # The UKI contains the kernel parameters usually passed by the bootloader
 # mkinitcpio looks in the /etc/cmdline.d directory for the params
 # Since rEFInd is already installed, we can copy its kernel parameters
-mkdir /etc/cmdline.d
+mkdir -p /etc/cmdline.d
 head –lines 1 /boot/refind_linux.conf | cut -d '"' -f 4 > /etc/cmdline.d/root.conf
 
 # The EFI partition is mounted at /boot
