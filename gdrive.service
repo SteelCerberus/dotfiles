@@ -1,0 +1,15 @@
+[Unit]
+Description=rclone for gdrive_mount
+AssertPathIsDirectory=/mnt/drive
+After=networking.service
+
+[Service]
+Type=simple
+ExecStart=rclone mount --config=/home/steel/.config/rclone/rclone.conf drive: /mnt/drive --allow-other --poll-interval 30s
+ExecStop=/bin/fusermount3 -u /mnt/drive
+Restart=always
+RestartSec=10
+User=steel
+
+[Install]
+WantedBy=default.target

@@ -21,14 +21,15 @@ curl -s https://ohmyposh.dev/install.sh | bash -s
 
 wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/FiraCode.zip
 wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip
-unzip FiraCode.zip -d /usr/share/fonts
-unzip JetBrainsMono.zip -d /usr/share/fonts
-fc-cache -f -v
+sudo unzip FiraCode.zip -d /usr/share/fonts
+sudo unzip JetBrainsMono.zip -d /usr/share/fonts
+sudo fc-cache -f -v
 
 rm ~/.zshrc
 
-mkdir -p /mnt/drive/
-mkdir -p /mnt/netshare/
+sudo mkdir -p /mnt/drive/
+sudo mkdir -p /mnt/netshare/
+sudo mv gdrive.service netshare.service /etc/systemd/system
 
 # Big install
 sudo pacman -S --noconfirm --needed \

@@ -1,0 +1,15 @@
+[Unit]
+Description=rclone for netshare
+AssertPathIsDirectory=/mnt/netshare
+After=networking.service
+
+[Service]
+Type=simple
+ExecStart=rclone mount --config=/home/steel/.config/rclone/rclone.conf netshare: /mnt/netshare --allow-other --poll-interval 30s
+ExecStop=/bin/fusermount3 -u /mnt/netshare
+Restart=always
+RestartSec=10
+User=steel
+
+[Install]
+WantedBy=default.target

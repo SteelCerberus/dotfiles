@@ -45,10 +45,23 @@ Boot from the USB drive.
 12. Fill in the user info
 13. Review the info and press `Install`, then `Install Now`
 14. Reboot to the new system
+15. Log in with the new username and password
+16. Clone this repo, `git clone https://github.com/SteelCerberus/dotfiles.git`
+17. `cd dotfiles`
+18. `sudo ./install.sh`
+19. `reboot` and log in
 
 ## Post-Installation
-1. Log in with the new username and password
-2. Clone this repo, `git clone https://github.com/SteelCerberus/dotfiles.git`
-3. `cd dotfiles`
-4. `sudo ./install.sh`
+1. `cd dotfiles`
+2. `./post_install.sh` and follow any instructions
+3. Overwrite existing .config: `cp -r .config ..`
+4. Delete this repo if desired: `cd .. && rm -rf dotfiles`
+5. Modify `/etc/systemd/system/gdrive.service` and `/etc/systemd/system/netshare.service` to have the correct username (i.e., replace `steel` with the current username)
+6. Use `rclone config` or copy over old rclone config
+7. `sudo systemctl enable gdrive.service`
+8. `sudo systemctl enable netshare.service`
+9. Add to `crontab -e`:
+* `* * * * * [ $(cat /sys/class/power_supply/BAT0/capacity) -lt 20 ] && [ "$(cat /sys/class/power_supply/BAT0/status)" = "Discharging" ] && DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus notify-send -u normal "Battery Low"`
+10. Add user to any groups (e.g., `wheel`, `kvm`, `docker`, `nix-users`, `wireshark`, `libvirt`)
+11. `reboot`
 
