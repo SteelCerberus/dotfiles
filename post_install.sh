@@ -21,8 +21,11 @@ curl -s https://ohmyposh.dev/install.sh | bash -s
 
 wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/FiraCode.zip
 wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip
-sudo unzip FiraCode.zip -d /usr/share/fonts
-sudo unzip JetBrainsMono.zip -d /usr/share/fonts
+sudo mkdir -p /usr/share/fonts/FiraCode
+sudo mkdir -p /usr/share/fonts/JetBrainsMono
+sudo unzip FiraCode.zip -d /usr/share/fonts/FiraCode
+sudo unzip JetBrainsMono.zip -d /usr/share/fonts/JetBrainsMono
+rm FiraCode.zip JetBrainsMono.zip
 sudo fc-cache -f -v
 
 rm ~/.zshrc
@@ -106,12 +109,10 @@ sudo pacman -S --noconfirm --needed \
     sbctl \
     swaync \
     texinfo \
-    tldr \
     trash-cli \
     valgrind \
     virt-manager \
     virt-viewer \
-    wget \
     wine \
     wireshark-qt \
     wl-clipboard \

@@ -24,6 +24,7 @@ pacman -S --noconfirm --needed \
     intel-ucode \
     mkinitcpio \
     sbctl \
+    curl \
     wget \
     efibootmgr \
     jq \
