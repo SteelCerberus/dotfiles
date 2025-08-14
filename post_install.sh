@@ -6,7 +6,12 @@ paru -Syu
 paru -S --sudoloop --needed \
     auto-cpufreq \
     google-chrome \
-    rr
+
+sudo systemctl enable --now auto-cpufreq
+
+# From CachyOS-PKGBUILDS
+sudo pacman -S --noconfirm --needed \
+    cachyos-gaming-meta \
 
 sudo pacman -S --noconfirm --needed \
     7zip \
@@ -64,7 +69,6 @@ sudo pacman -S --noconfirm --needed \
     networkmanager \
     okular \
     openssh \
-    otf-apple-fonts \
     pipewire \
     pipewire-alsa \
     pipewire-jack \
@@ -85,7 +89,6 @@ sudo pacman -S --noconfirm --needed \
     swaync \
     texinfo \
     tldr \
-    tmatrix \
     trash-cli \
     valgrind \
     virt-manager \
@@ -97,5 +100,5 @@ sudo pacman -S --noconfirm --needed \
     wireshark-qt \
     wl-clipboard \
     wtype \
-    xdg-desktop-portal-hyprland
+    xdg-desktop-portal-hyprland \
 

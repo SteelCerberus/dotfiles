@@ -143,5 +143,7 @@ done
 sbctl verify
 
 echo "Installation complete! Ready to reboot the system."
-echo "Old Secure Boot variables are saved at old_(PK, KEK, db, dbx).esl. These can be deleted if a reboot is successful."
+if [[ $EXISTING_KEYS = 1 ]]; then
+    echo "Old Secure Boot variables are saved at old_(PK, KEK, db, dbx).esl. These can be deleted if a reboot is successful."
+fi
 
