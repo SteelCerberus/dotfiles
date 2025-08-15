@@ -28,10 +28,9 @@ sudo unzip JetBrainsMono.zip -d /usr/share/fonts/JetBrainsMono
 rm FiraCode.zip JetBrainsMono.zip
 sudo fc-cache -f -v
 
-rm ~/.zshrc
-
 sudo mkdir -p /mnt/drive/
 sudo mkdir -p /mnt/netshare/
+sudo chown -R $USER /mnt/drive /mnt/netshare
 sudo mv gdrive.service netshare.service /etc/systemd/system
 
 # Big install

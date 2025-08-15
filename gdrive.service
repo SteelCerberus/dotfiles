@@ -5,7 +5,7 @@ After=networking.service
 
 [Service]
 Type=simple
-ExecStart=rclone mount --config=/home/steel/.config/rclone/rclone.conf drive: /mnt/drive --allow-other --poll-interval 30s
+ExecStart=rclone mount --config=/home/steel/.config/rclone/rclone.conf drive: /mnt/drive --poll-interval 30s
 ExecStop=/bin/fusermount3 -u /mnt/drive
 Restart=always
 RestartSec=10

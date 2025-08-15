@@ -5,7 +5,7 @@ After=networking.service
 
 [Service]
 Type=simple
-ExecStart=rclone mount --config=/home/steel/.config/rclone/rclone.conf netshare: /mnt/netshare --allow-other --poll-interval 30s
+ExecStart=rclone mount --config=/home/steel/.config/rclone/rclone.conf netshare: /mnt/netshare --poll-interval 30s
 ExecStop=/bin/fusermount3 -u /mnt/netshare
 Restart=always
 RestartSec=10

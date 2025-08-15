@@ -75,8 +75,14 @@ for EFIVAR in PK KEK db dbx ; do
     fi
 done
 
+if [[ $EXISTING_KEYS = 1 ]]; then
+    echo "Not in Setup Mode, Secure Boot keys exist. Boot to firmware with 'systemctl reboot --firmware-setup' and enter Setup Mode (clear Secure Boot keys and disable Secure Boot)."
+    echo "Existing keys have been saved to old_(key name).esl"
+    exit 1
+fi
+
 if ! sbctl status | grep "Setup Mode" | grep -q "Enabled"; then
-    echo "Not in Setup Mode. Boot to firmware with 'systemctl reboot --firmware-setup' and enter Setup Mode (clear Platform Key and disable Secure Boot)."
+    echo "Not in Setup Mode (likely that Secure Boot is enabled). Boot to firmware with 'systemctl reboot --firmware-setup' and enter Setup Mode (clear Platform Key and disable Secure Boot)."
     exit 1
 fi
 
@@ -103,7 +109,9 @@ ALL_kver="$(pacman -Qql linux-cachyos | grep 'vmlinuz$')"
 PRESETS=('default')
 
 default_uki="/boot/EFI/boot/cachyos.efi"
-default_options="--splash /usr/share/systemd/bootctl/splash-arch.bmp"
+# Uncomment for Arch logo splash
+# default_options="--splash /usr/share/systemd/bootctl/splash-arch.bmp"
+default_options=""
 
 fallback_uki="/boot/EFI/boot/bootx64.efi"
 fallback_options="-S autodetect"
@@ -129,11 +137,8 @@ rm -rf /boot/refind_linux.conf /boot/EFI/refind
 ###############################################################################
 
 sbctl create-keys
-if [[ $EXISTING_KEYS = 1 ]]; then
-    sbctl enroll-keys --microsoft --firmware-builtin
-else
-    sbctl enroll-keys --microsoft
-fi
+# Note - this may fail if no builtin keys exist. If this is the case, remove --firmware-builtin.
+sbctl enroll-keys --microsoft --firmware-builtin
 
 for EFIBINARY in /boot/btrfs.efi /boot/shellx64.efi /boot/EFI/boot/cachyos.efi; do
     sbctl sign -s "$EFIBINARY"
