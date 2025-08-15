@@ -1,0 +1,7 @@
+.git
+.gitignore
+gdrive.service
+netshare.service
+install.sh
+post_install.sh
+README.md

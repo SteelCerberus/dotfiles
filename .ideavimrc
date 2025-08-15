@@ -1,0 +1,19 @@
+" .ideavimrc is a configuration file for IdeaVim plugin. It uses
+"   the same commands as the original .vimrc configuration.
+" You can find a list of commands here: https://jb.gg/h38q75
+" Find more examples here: https://jb.gg/share-ideavimrc
+
+
+"" -- Suggested options --
+" Show a few lines of context around the cursor. Note that this makes the
+" text scroll if you mouse-click near the start or end of the window.
+set scrolloff=5
+
+" Do incremental searching.
+set incsearch
+
+inoremap jj <Esc>
+inoremap jk <Esc>
+
+nnoremap <silent><Enter> :set paste<CR>m`o<Esc>``:set nopaste<CR>
+nnoremap <silent><S-Enter> :set paste<CR>m`O<Esc>``:set nopaste<CR>set ideajoin
