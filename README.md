@@ -54,14 +54,55 @@ Boot from the USB drive.
 ## Post-Installation
 1. `cd dotfiles`
 2. `./post_install.sh` and follow any instructions
-3. Overwrite existing .config: `cp -r .config ..`
-4. Delete this repo if desired: `cd .. && rm -rf dotfiles`
-5. Modify `/etc/systemd/system/gdrive.service` and `/etc/systemd/system/netshare.service` to have the correct username (i.e., replace `steel` with the current username)
-6. Use `rclone config` or copy over old rclone config
-7. `sudo systemctl enable gdrive.service`
-8. `sudo systemctl enable netshare.service`
-9. Add to `crontab -e`:
+3. Overwrite existing .config with `cp -r .config ..`. If using this repo going forward, skip this step and follow the instructions at the end for setting up `stow`.
+4. Modify `/etc/systemd/system/gdrive.service` and `/etc/systemd/system/netshare.service` to have the correct username (i.e., replace `steel` with the current username)
+5. Use `rclone config` or copy over old rclone config
+6. `sudo systemctl enable --now gdrive.service`
+7. `sudo systemctl enable --now netshare.service`
+8. Add to `crontab -e`:
 * `* * * * * [ $(cat /sys/class/power_supply/BAT0/capacity) -lt 20 ] && [ "$(cat /sys/class/power_supply/BAT0/status)" = "Discharging" ] && DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus notify-send -u normal "Battery Low"`
-10. Add user to any groups (e.g., `wheel`, `kvm`, `docker`, `nix-users`, `wireshark`, `libvirt`)
+9. Add user to any groups (e.g., `wheel`, `kvm`, `docker`, `nix-users`, `wireshark`, `libvirt`)
+10. GitHub ssh config:
+```bash
+/bin/bash
+cd
+mkdir -p .ssh
+ssh-keygen -t ed25519 -C "email@gmail.com"
+wl-copy < ~/.ssh/id_ed25519.pub
+# Now add that to GitHub
+
+# If using multiple GitHub accounts, do that process for each account, then create an ssh config:
+vim ~/.ssh/config
+
+Host *
+    IdentitiesOnly yes
+
+Host personal
+    HostName github.com
+    IdentityFile ~/.ssh/personal_id_ed25519
+
+Host work
+    HostName github.com
+    IdentityFile ~/.ssh/work_id_ed25519
+
+# Now, git can be used like this:
+git clone git@personal:User/repo.git
+
+# Then in a repo, always do this:
+cd repo
+git config user.name "Personal Name"
+git config user.email "personal@gmail.com"
+```
 11. `reboot`
+12. Log in, then `Hyprland` 
+
+### Stow
+```bash
+cd
+rm -rf dotfiles
+git clone git@personal:SteelCerberus/dotfiles.git .dotfiles
+cd .dotfiles
+# This creates symlinks for the files not in .stow-local-ignore
+stow .
+```
 
