@@ -7,14 +7,16 @@ paru -Syu
 
 # AUR packages
 paru -S --sudoloop --needed \
-    auto-cpufreq \
     google-chrome \
+    tmatrix \
 
 sudo systemctl enable --now auto-cpufreq
 
-# From CachyOS-PKGBUILDS
+# From CachyOS
 sudo pacman -S --noconfirm --needed \
     cachyos-gaming-meta \
+    auto-cpufreq \  # usually in AUR
+sudo pacman -Rns plymouth cachyos-plymouth-bootanimation
 
 # Any other before the big install
 curl -s https://ohmyposh.dev/install.sh | bash -s
@@ -107,6 +109,7 @@ sudo pacman -S --noconfirm --needed \
     rofi-wayland \
     sbctl \
     swaync \
+    tealdeer \
     texinfo \
     trash-cli \
     valgrind \

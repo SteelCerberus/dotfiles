@@ -1,3 +1,4 @@
+!.dotfiles/
 !.config/
 !.config/**
 .config/google-chrome/

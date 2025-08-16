@@ -101,7 +101,7 @@ echo "$REFIND_CONF" | cut -d '"' -f 4 > /etc/cmdline.d/root.conf
 # We need to create the /EFI/boot directory in the EFI partition to place bootx64.efi as a fallback
 mkdir -p /boot/EFI/boot
 
-cat << EOF > /etc/mkinitcpio.d/linux.preset
+cat << 'EOF' > /etc/mkinitcpio.d/linux-cachyos.preset
 ALL_kver="$(pacman -Qql linux-cachyos | grep 'vmlinuz$')"
 
 # Uncomment to generate a fallback

@@ -54,15 +54,17 @@ Boot from the USB drive.
 ## Post-Installation
 1. `cd dotfiles`
 2. `./post_install.sh` and follow any instructions
-3. Overwrite existing .config with `cp -r .config ..`. If using this repo going forward, skip this step and follow the instructions at the end for setting up `stow`.
-4. Modify `/etc/systemd/system/gdrive.service` and `/etc/systemd/system/netshare.service` to have the correct username (i.e., replace `steel` with the current username)
-5. Use `rclone config` or copy over old rclone config
-6. `sudo systemctl enable --now gdrive.service`
-7. `sudo systemctl enable --now netshare.service`
-8. Add to `crontab -e`:
+3. Remove `plymouth` from the HOOKS in `/etc/mkinitcpio.conf`
+4. Overwrite existing .config with `cp -r .config ..`. If using this repo going forward, skip this step and follow the instructions at the end for setting up `stow`.
+5. Modify `/etc/systemd/system/gdrive.service` and `/etc/systemd/system/netshare.service` to have the correct username (i.e., replace `steel` with the current username)
+6. Use `rclone config` or copy over old rclone config
+7. `sudo systemctl enable --now gdrive.service`
+8. When ready to use, `sudo systemctl start netshare.service`
+9. Add to `crontab -e`:
 * `* * * * * [ $(cat /sys/class/power_supply/BAT0/capacity) -lt 20 ] && [ "$(cat /sys/class/power_supply/BAT0/status)" = "Discharging" ] && DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus notify-send -u normal "Battery Low"`
-9. Add user to any groups (e.g., `wheel`, `kvm`, `docker`, `nix-users`, `wireshark`, `libvirt`)
-10. GitHub ssh config:
+10. Add user to any groups (e.g., `wheel`, `kvm`, `docker`, `nix-users`, `wireshark`, `libvirt`)
+11. Remove any extraneous boot options from the previous OS: `efibootmgr -B -b XXXX`
+12. GitHub ssh config:
 ```bash
 /bin/bash
 cd
