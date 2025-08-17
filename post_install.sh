@@ -16,6 +16,7 @@ sudo systemctl enable --now auto-cpufreq
 # From CachyOS
 sudo pacman -S --noconfirm --needed \
     cachyos-gaming-meta \
+    cachyos-gaming-applications \
     auto-cpufreq \  # usually in AUR
 sudo pacman -Rns plymouth cachyos-plymouth-bootanimation
 
@@ -36,17 +37,15 @@ sudo mkdir -p /mnt/netshare/
 sudo chown -R $USER /mnt/drive /mnt/netshare
 sudo mv gdrive.service netshare.service /etc/systemd/system
 
-# Big install
+# Important packages
 sudo pacman -S --noconfirm --needed \
     7zip \
-    at \
     base \
     base-devel \
     bat \
     blueman \
     brightnessctl \
     btop \
-    cmatrix \
     cronie \
     docker \
     duf \
@@ -77,6 +76,7 @@ sudo pacman -S --noconfirm --needed \
     hyprutils \
     hyprwayland-scanner \
     intel-ucode \
+    imagemagick \
     keepassxc \
     kitty \
     lf \
@@ -109,6 +109,7 @@ sudo pacman -S --noconfirm --needed \
     ripgrep \
     rofi-wayland \
     sbctl \
+    stow \
     swaync \
     tealdeer \
     texinfo \
@@ -121,4 +122,29 @@ sudo pacman -S --noconfirm --needed \
     wl-clipboard \
     wtype \
     xdg-desktop-portal-hyprland \
+
+# Optional (nice to have packages, but not used by any dotfiles)
+sudo pacman -S --noconfirm --needed \
+    at \
+    blueman \
+    cmatrix \
+    duf \
+    freerdp \
+    gdu \
+    ghidra \
+    globalprotect-openconnect \
+    gthumb \
+    libreoffice-fresh \
+    lolcat \
+    nix \
+    ntfs-3g \
+    okular \
+    qalculate-qt \
+    qemu-full \
+    qemu-user \
+    tealdeer \
+    valgrind \
+    virt-manager \
+    virt-viewer \
+    wireshark-qt \
 
