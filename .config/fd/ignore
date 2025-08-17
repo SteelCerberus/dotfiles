@@ -1,6 +1,4 @@
-!.dotfiles/
 !.config/
-!.config/**
 .config/google-chrome/
 .config/go/
-.config/systemd/
+.config/chromium/

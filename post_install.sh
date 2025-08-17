@@ -9,6 +9,7 @@ paru -Syu
 paru -S --sudoloop --needed \
     google-chrome \
     tmatrix \
+    pipes.sh \
 
 sudo systemctl enable --now auto-cpufreq
 

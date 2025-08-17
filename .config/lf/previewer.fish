@@ -1,20 +1,27 @@
 #!/usr/bin/env fish
 
-function draw
-  kitty +kitten icat --silent --stdin no --transfer-mode file --place $w'x'$h'@'$x'x'$y "$argv[1]" </dev/null >/dev/tty
-  exit 1
-end
-
 set file $argv[1]
 set w $argv[2]
 set h $argv[3]
 set x $argv[4]
 set y $argv[5]
+set line 0
+if set -q argv[6]
+    set line $argv[6]
+end
 
 switch (file -Lb --mime-type $file)
 case "image/*"
-    draw $file
+    kitten icat --silent --stdin no --transfer-mode memory --place $w'x'$h'@'$x'x'$y "$file" </dev/null >/dev/tty
 case '*'
-    bat --paging=never --color=always $file
+    set center $(math --scale 0 "($LINES - 3) / 2")
+    if test $line -lt $center
+        set center $line
+    end
+    set start $(math "$line - $center")
+    set end $(math "$start + $LINES")
+    bat --color always --highlight-line $line --line-range "$start:$end" --paging never "$file"
 end
+
+exit 1
 

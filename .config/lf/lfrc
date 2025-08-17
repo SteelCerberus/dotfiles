@@ -1,12 +1,12 @@
 # interpreter for shell commands
-set shell bash
+set shell fish
 
 # set internal field separator (IFS) to "\n" for shell commands
 # This is useful to automatically split file names in $fs and $fx properly
 # since default file separator used in these variables (i.e. 'filesep' option)
 # is newline. You need to consider the values of these options and create your
 # commands accordingly.
-set ifs "\n"
+# set ifs "\n"
 
 # leave some space at the top and the bottom of the screen
 set scrolloff 10
@@ -21,7 +21,13 @@ map <enter> shell
 map ` !true
 
 # Opens in full-terminal neovim if a text file; else uses xdg-open
-cmd open $set -f; file="$fx"; file -i "$file" | grep -q "text/*" && fish -c "v $fx" || xdg-open "$file" > /dev/null 2>&1 || fish -c "v $fx"
+cmd open ${{
+    if file -i "$fx" | grep -q "text/*"
+        v $fx
+    else
+        xdg-open $fx > /dev/null 2>&1
+    end
+}}
 
 # mkdir command. See wiki if you want it to select created dir
 map a :push %mkdir<space>
@@ -41,7 +47,7 @@ map p :paste; clear
 
 # Shortcuts
 map gc :set hidden; cd ~/.config/
-map c :set hidden; cd ~/.config/
+map c :set hidden; cd ~/.dotfiles/.config
 map gt :set hidden; cd "/mnt/drive/Documents/Georgia Tech/"
 map gf :push %touch<space>
 
@@ -55,29 +61,24 @@ map <c-y> yank-file
 cmd d :delete
 
 cmd fzf_search ${{
-    cmd="rg --column --line-number --no-heading --color=always --smart-case"
-    # TODO: This sendcmd is broken for files with spaces, backslashes, and quotes
-    sendcmd="send $id select \"$(printf "%s" {1} | sed 's/\\/\\\\/g;s/"/\\"/g')\""
-
+    set search_cmd "rg --column --line-number --no-heading --color=always --smart-case --follow --glob=!**/.git/* --glob=!**/venv/* --glob=!**/google-chrome/*"
     fzf --ansi --disabled --layout=reverse --header="Search in files" --delimiter=: \
-        --bind="start:reload([ -n {q} ] && $cmd -- {q} || true)" \
-        --bind="change:reload([ -n {q} ] && $cmd -- {q} || true)" \
-        --bind="enter:become(lf -remote \"$sendcmd\")" \
-        --preview='~/.config/lf/cleaner.fish; ~/.config/lf/previewer.fish {1} "$FZF_PREVIEW_COLUMNS" "$FZF_PREVIEW_LINES" "$FZF_PREVIEW_LEFT" "$FZF_PREVIEW_TOP"' \
+        --bind="start:reload([ -n {q} ] && $search_cmd -- {q} || true)" \
+        --bind="change:reload([ -n {q} ] && $search_cmd -- {q} || true)" \
+        --bind="enter:become(lf -remote \"send $id select {1}\")" \
+        --preview='~/.config/lf/cleaner.fish; ~/.config/lf/previewer.fish {1} "$FZF_PREVIEW_COLUMNS" "$FZF_PREVIEW_LINES" "$FZF_PREVIEW_LEFT" "$FZF_PREVIEW_TOP" {2}'
 }}
 map gs :fzf_search
 
-
 cmd fzf_jump ${{
-    res="$(fd | fzf --reverse --header="Jump to location")"
-    if [ -n "$res" ]; then
-        if [ -d "$res" ]; then
-            cmd="cd"
+    set res "$(fd | fzf --reverse --header="Jump to location")"
+    if test -n "$res"
+        if test -d "$res"
+            set cmd "cd"
         else
-            cmd="select"
-        fi
-        res="$(printf '%s' "$res" | sed 's/\\/\\\\/g;s/"/\\"/g')"
+            set cmd "select"
+        end
         lf -remote "send $id $cmd \"$res\""
-    fi
+    end
 }}
 map <c-f> :fzf_jump
