@@ -17,6 +17,8 @@ fi
 ### Install necessary dependencies
 ###############################################################################
 
+systemctl enable --now NetworkManager
+
 echo "Installing core packages"
 pacman -S --noconfirm --needed \
     efitools \
@@ -101,7 +103,7 @@ echo "$REFIND_CONF" | cut -d '"' -f 4 > /etc/cmdline.d/root.conf
 # We need to create the /EFI/boot directory in the EFI partition to place bootx64.efi as a fallback
 mkdir -p /boot/EFI/boot
 
-cat << 'EOF' > /etc/mkinitcpio.d/linux-cachyos.preset
+cat << 'EOF' > /etc/mkinitcpio.d/uki.preset
 ALL_kver="$(pacman -Qql linux-cachyos | grep 'vmlinuz$')"
 
 # Uncomment to generate a fallback
@@ -116,6 +118,9 @@ default_options=""
 fallback_uki="/boot/EFI/boot/bootx64.efi"
 fallback_options="-S autodetect"
 EOF
+
+# TODO: This comes back on updates... need a better solution
+rm /etc/mkinitcpio.d/linux-cachyos.preset
 
 # Regenerate all presets to create the UKI
 mkinitcpio -P

@@ -5,6 +5,10 @@ set -o pipefail
 
 paru -Syu
 
+systemctl --user enable --now pipewire
+systemctl --user enable --now pipewire-pulse
+systemctl --user enable --now wireplumber
+
 # AUR packages
 paru -S --sudoloop --needed \
     google-chrome \
@@ -43,12 +47,9 @@ sudo pacman -S --noconfirm --needed \
     base \
     base-devel \
     bat \
-    blueman \
     brightnessctl \
     btop \
     cronie \
-    docker \
-    duf \
     edk2-shell \
     efibootmgr \
     efitools \
@@ -60,8 +61,6 @@ sudo pacman -S --noconfirm --needed \
     fuse3 \
     fzf \
     gdb \
-    gdu \
-    ghidra \
     git \
     gnome-keyring \
     gtk3 \
@@ -71,18 +70,17 @@ sudo pacman -S --noconfirm --needed \
     hyprlock \
     hyprpaper \
     hyprpicker \
+    hyprpolkitagent \
     hyprshot \
     hyprsunset \
     hyprutils \
     hyprwayland-scanner \
     intel-ucode \
     imagemagick \
-    keepassxc \
     kitty \
     lf \
     lib32-gcc-libs \
     lib32-glibc \
-    libreoffice-fresh \
     linux \
     linux-firmware \
     linux-headers \
@@ -92,16 +90,10 @@ sudo pacman -S --noconfirm --needed \
     neovim \
     net-tools \
     networkmanager \
-    nix \
     npm \
-    okular \
     openssh \
     pkgfile \
-    polkit-kde-agent \
     python-pip \
-    qalculate-qt \
-    qemu-full \
-    qemu-user \
     qt5-wayland \
     qt6-wayland \
     rclone \
@@ -111,14 +103,9 @@ sudo pacman -S --noconfirm --needed \
     sbctl \
     stow \
     swaync \
-    tealdeer \
     texinfo \
     trash-cli \
-    valgrind \
-    virt-manager \
-    virt-viewer \
     wine \
-    wireshark-qt \
     wl-clipboard \
     wtype \
     xdg-desktop-portal-hyprland \
@@ -127,13 +114,15 @@ sudo pacman -S --noconfirm --needed \
 sudo pacman -S --noconfirm --needed \
     at \
     blueman \
-    cmatrix \
+    docker \
     duf \
     freerdp \
     gdu \
     ghidra \
     globalprotect-openconnect \
+    gpu-screen-recorder-gtk \
     gthumb \
+    keepassxc \
     libreoffice-fresh \
     lolcat \
     nix \
@@ -146,5 +135,8 @@ sudo pacman -S --noconfirm --needed \
     valgrind \
     virt-manager \
     virt-viewer \
+    vlc \
+    vlc-plugins-all \
     wireshark-qt \
+    youtube-music \
 

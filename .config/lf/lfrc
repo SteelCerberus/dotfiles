@@ -25,7 +25,7 @@ cmd open ${{
     if file -i "$fx" | grep -q "text/*"
         v $fx
     else
-        xdg-open $fx > /dev/null 2>&1
+        xdg-open $fx 2>/dev/null
     end
 }}
 

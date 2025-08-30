@@ -31,7 +31,8 @@ opt.signcolumn = 'yes:1'
 
 -- Show whitespace
 opt.list = true
-opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+opt.listchars = { tab = '  ', trail = '·', nbsp = '␣' }
+-- Alternatively, tab = '» '
 
 -- Changes the ~ at the end of the file to spaces
 opt.fillchars = { eob = " " }
