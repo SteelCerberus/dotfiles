@@ -46,8 +46,7 @@ set period 1
 map p :paste; clear
 
 # Shortcuts
-map gc :set hidden; cd ~/.config/
-map c :set hidden; cd ~/.dotfiles/.config
+map gc :set hidden; cd ~/.dotfiles/.config
 map gt :set hidden; cd "/mnt/drive/Documents/Georgia Tech/"
 map gf :push %touch<space>
 

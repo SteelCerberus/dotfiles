@@ -27,7 +27,8 @@ alias ll='eza -al --color=always --group-directories-first'
 alias pipes='pipes.sh -R -f 100 -p 10 -t 2 -r 5000 -c 1 -c 2 -c 3 -c 4 -c 5 -c 6 -c 7'
 alias fd='fd --follow'
 alias rg='rg --smart-case --follow'
+alias gdb='gdb -q'
 
-alias ..='cd ..'
-alias ...='cd ../..'
+alias ..='cd .. && ls'
+alias ...='cd ../.. && ls'
 

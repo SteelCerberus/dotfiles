@@ -126,6 +126,7 @@ sudo pacman -S --noconfirm --needed \
     libreoffice-fresh \
     lolcat \
     nix \
+    ninja \
     ntfs-3g \
     okular \
     qalculate-qt \

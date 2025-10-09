@@ -106,21 +106,40 @@ mkdir -p /boot/EFI/boot
 cat << 'EOF' > /etc/mkinitcpio.d/uki.preset
 ALL_kver="$(pacman -Qql linux-cachyos | grep 'vmlinuz$')"
 
-# Uncomment to generate a fallback
-# PRESETS=('default' 'fallback')
-PRESETS=('default')
+PRESETS=('default' 'fallback')
 
 default_uki="/boot/EFI/boot/cachyos.efi"
 # Uncomment for Arch logo splash
 # default_options="--splash /usr/share/systemd/bootctl/splash-arch.bmp"
 default_options=""
 
-fallback_uki="/boot/EFI/boot/bootx64.efi"
+fallback_uki="/root/backup.efi"
 fallback_options="-S autodetect"
 EOF
 
-# TODO: This comes back on updates... need a better solution
-rm /etc/mkinitcpio.d/linux-cachyos.preset
+# Replace default mkinitcpio presets with empty files so they don't do anything
+# However, mkinitcpio itself will still automatically generate vmlinuz-linux*,
+# so we need a separate pacman hook to get rid of those and ensure we are
+# running the UKI preset
+rm -f /etc/mkinitcpio.d/linux-cachyos.preset
+rm -f /etc/mkinitcpio.d/linux.preset
+touch /etc/mkinitcpio.d/linux-cachyos.preset
+touch /etc/mkinitcpio.d/linux.preset
+
+mkdir -p /etc/pacman.d/hooks
+cat << 'EOF' > /etc/pacman.d/hooks/99-uki-mkinitcpio.hook
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = linux-cachyos
+Target = linux
+
+[Action]
+Description = Building CachyOS UKI and removing redundant kernel images
+When = PostTransaction
+Exec = /bin/sh -c 'mkinitcpio -p uki && rm -f /boot/vmlinuz-linux-cachyos; rm -f /boot/vmlinuz-linux'
+EOF
 
 # Regenerate all presets to create the UKI
 mkinitcpio -P
@@ -129,8 +148,8 @@ mkinitcpio -P
 efibootmgr --create --disk "$EFIDISK" --part "$EFIPART" --label "CachyOS UKI" --loader "\EFI\boot\cachyos.efi"
 echo "Created boot entry for CachyOS UKI"
 
-# Clean up the now unnecessary files
-rm /boot/vmlinuz-linux-cachyos /boot/intel-ucode.img /boot/initramfs-linux-cachyos.img
+# Clean up any remaining files
+rm -f /boot/vmlinuz-linux /boot/initramfs-linux.img /boot/vmlinuz-linux-cachyos /boot/intel-ucode.img /boot/initramfs-linux-cachyos.img
 
 # Delete all traces of rEFInd
 efibootmgr -B -b "$(efibootmgr | grep -i refind | cut -f 1 -d ' ' | cut -f 1 -d '*' | cut -f 2 -d 't')"

@@ -56,6 +56,9 @@ set("n", "C", '"_C')
 set("n", "cc", '"_cc')
 set("x", "c", '"_c')
 
+-- Select the just pasted text
+set("n", "gp", "`[v`]")
+
 set("n", "<c-h>", "<c-w>h", {desc = "Switch between windows"})
 set("n", "<c-j>", "<c-w>j", {desc = "Switch between windows"})
 set("n", "<c-k>", "<c-w>k", {desc = "Switch between windows"})
