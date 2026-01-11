@@ -5,10 +5,8 @@ set w $argv[2]
 set h $argv[3]
 set x $argv[4]
 set y $argv[5]
-set line 0
-if set -q argv[6]
-    set line $argv[6]
-end
+
+set line "$lf_user_preview_offset"
 
 switch (file -Lb --mime-type $file)
 case "image/*"
@@ -20,7 +18,7 @@ case '*'
     end
     set start $(math "$line - $center")
     set end $(math "$start + $LINES")
-    bat --color always --highlight-line $line --line-range "$start:$end" --paging never "$file"
+    bat --color always --highlight-line "$line" --line-range "$start:$end" --paging always "$file"
 end
 
 exit 1

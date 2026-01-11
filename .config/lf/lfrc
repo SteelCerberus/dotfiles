@@ -14,9 +14,6 @@ set scrolloff 10
 # Use the `dim` attribute instead of underline for the cursor in the preview pane
 set cursorpreviewfmt "\033[7;2m"
 
-# use enter for shell commands
-map <enter> shell
-
 # show the result of execution of previous commands
 map ` !true
 
@@ -32,8 +29,20 @@ cmd open ${{
 # mkdir command. See wiki if you want it to select created dir
 map a :push %mkdir<space>
 
-# Preview using Pistol and Kitty for images
-set previewer ~/.config/lf/previewer.fish
+set previewer ~/.dotfiles/.config/lf/previewer.fish
+
+cmd on-select set user_preview_offset 1
+cmd scroll-preview &{{
+    set -l offset (math $lf_user_preview_offset + $argv[1])
+    if test $offset -lt 1
+        set offset 1
+    end
+    # `set preview true` is a hack used to reload the preview
+    lf -remote "send $id :set user_preview_offset $offset; set preview true"
+}}
+map <c-j> scroll-preview 5
+map <c-k> scroll-preview -5
+
 set cleaner ~/.config/lf/cleaner.fish
 
 # Show icons

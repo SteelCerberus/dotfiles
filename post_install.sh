@@ -12,7 +12,9 @@ systemctl --user enable --now wireplumber
 # AUR packages
 paru -S --sudoloop --needed \
     google-chrome \
+    helium-browser-bin \
     tmatrix \
+    rr-bin \
     pipes.sh \
 
 sudo systemctl enable --now auto-cpufreq
@@ -105,10 +107,13 @@ sudo pacman -S --noconfirm --needed \
     swaync \
     texinfo \
     trash-cli \
+    tty-clock \
     wine \
     wl-clipboard \
     wtype \
     xdg-desktop-portal-hyprland \
+
+sudo systemctl enable --now cronie
 
 # Optional (nice to have packages, but not used by any dotfiles)
 sudo pacman -S --noconfirm --needed \
@@ -127,6 +132,7 @@ sudo pacman -S --noconfirm --needed \
     lolcat \
     nix \
     ninja \
+    noto-fonts-cjk \
     ntfs-3g \
     okular \
     qalculate-qt \
@@ -134,6 +140,7 @@ sudo pacman -S --noconfirm --needed \
     qemu-user \
     tealdeer \
     valgrind \
+    uv \
     virt-manager \
     virt-viewer \
     vlc \
