@@ -15,14 +15,13 @@ paru -S --sudoloop --needed \
     helium-browser-bin \
     tmatrix \
     rr-bin \
-    pipes.sh \
+    pipes.sh
 
 # From CachyOS
 sudo pacman -S --noconfirm --needed \
     cachyos-gaming-meta \
     cachyos-gaming-applications \
-    auto-cpufreq \  # usually in AUR
-sudo pacman -Rns plymouth cachyos-plymouth-bootanimation
+    auto-cpufreq # usually in AUR
 
 sudo systemctl enable --now auto-cpufreq
 
@@ -41,7 +40,7 @@ sudo fc-cache -f -v
 sudo mkdir -p /mnt/drive/
 sudo mkdir -p /mnt/netshare/
 sudo chown -R $USER /mnt/drive /mnt/netshare
-sudo mv gdrive.service netshare.service /etc/systemd/system
+sudo cp gdrive.service netshare.service /etc/systemd/system
 
 # Important packages
 sudo pacman -S --noconfirm --needed \
