@@ -17,14 +17,14 @@ paru -S --sudoloop --needed \
     rr-bin \
     pipes.sh \
 
-sudo systemctl enable --now auto-cpufreq
-
 # From CachyOS
 sudo pacman -S --noconfirm --needed \
     cachyos-gaming-meta \
     cachyos-gaming-applications \
     auto-cpufreq \  # usually in AUR
 sudo pacman -Rns plymouth cachyos-plymouth-bootanimation
+
+sudo systemctl enable --now auto-cpufreq
 
 # Any other before the big install
 curl -s https://ohmyposh.dev/install.sh | bash -s
