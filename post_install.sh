@@ -42,6 +42,14 @@ sudo mkdir -p /mnt/netshare/
 sudo chown -R $USER /mnt/drive /mnt/netshare
 sudo cp gdrive.service netshare.service /etc/systemd/system
 
+# Required for external monitor brightness control with ddcutil
+sudo modprobe i2c-dev
+
+# Get plugins
+hyprpm update
+hyprpm add https://github.com/hyprwm/hyprland-plugins
+hyprpm enable hyprexpo
+
 # Important packages
 sudo pacman -S --noconfirm --needed \
     7zip \
@@ -51,6 +59,7 @@ sudo pacman -S --noconfirm --needed \
     brightnessctl \
     btop \
     cronie \
+    ddcutil \
     edk2-shell \
     efibootmgr \
     efitools \
@@ -88,6 +97,7 @@ sudo pacman -S --noconfirm --needed \
     luarocks \
     man-db \
     man-pages \
+    meson \
     neovim \
     net-tools \
     networkmanager \
@@ -104,6 +114,7 @@ sudo pacman -S --noconfirm --needed \
     sbctl \
     stow \
     swaync \
+    swayosd \
     texinfo \
     trash-cli \
     tty-clock \

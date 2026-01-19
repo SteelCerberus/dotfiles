@@ -9,8 +9,4 @@ return {
       { "B", '<cmd>lua require("various-textobjs").entireBuffer()<CR>', mode = { "o", "x" } },
     },
   },
-  {
-    "nvim-treesitter/nvim-treesitter-textobjects",
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-  },
 }

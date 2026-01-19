@@ -1,21 +1,89 @@
+local ensureInstalled = {
+  "bash",
+  "c",
+  "diff",
+  "html",
+  "lua",
+  "luadoc",
+  "markdown",
+  "markdown_inline",
+  "vim",
+  "python",
+  "query",
+  "regex",
+  "toml",
+  "java",
+  "yaml",
+  "ruby",
+  "go",
+  "css",
+  "typescript",
+  "javascript",
+  "json",
+  "jsdoc",
+  "json5",
+  "rust",
+}
+
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    lazy = false,
+    branch = "main",
     build = ":TSUpdate",
-    config = function()
-      local config = require("nvim-treesitter.configs")
-      config.setup({
-        ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'vim', 'vimdoc', 'java' },
-        auto_install = true,
-        highlight = { enable = true },
-        indent = { enable = true },
+    init = function()
+      -- auto-install parsers (no-op if already installed)
+      if vim.fn.executable("tree-sitter") == 1 then
+        vim.defer_fn(function() require("nvim-treesitter").install(ensureInstalled) end, 2000)
+      else
+        local msg = "`tree-sitter-cli` not found. Skipping auto-install of parsers."
+        vim.notify(msg, vim.log.levels.WARN, { title = "Treesitter" })
+      end
+
+      -- auto-start highlights & indentation
+      vim.api.nvim_create_autocmd("FileType", {
+        desc = "User: enable treesitter highlighting",
+        callback = function(ctx)
+          -- highlights
+          local hasStarted = pcall(vim.treesitter.start, ctx.buf) -- errors for filetypes with no parser
+
+          -- indent
+          local dontUseTreesitterIndent = { "zsh", "bash", "markdown", "javascript" }
+          if hasStarted and not vim.list_contains(dontUseTreesitterIndent, ctx.match) then
+            vim.bo[ctx.buf].indentexpr = "v:lua.require('nvim-treesitter').indentexpr()"
+          end
+        end,
       })
-    end
+
+      -- comments parser
+      vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
+        desc = "User: highlights for the Treesitter `comments` parser",
+        callback = function()
+          -- FIX todo-comments in languages where LSP overwrites their highlight
+          -- https://github.com/stsewd/tree-sitter-comment/issues/22
+          -- https://github.com/LuaLS/lua-language-server/issues/1809
+          vim.api.nvim_set_hl(0, "@lsp.type.comment", {})
+
+          -- Define `@comment.bold` for `queries/comment/highlights.scm`
+          vim.api.nvim_set_hl(0, "@comment.bold", { bold = true })
+        end,
+      })
+
+      -- `ts_query_ls`: use the custom directory set in the treesitter config
+      local tsDir = require("nvim-treesitter.config").get_install_dir("parser")
+      vim.lsp.config("ts_query_ls", {
+        init_options = { parser_install_directories = { tsDir } },
+      })
+    end,
   },
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
+    branch = "main",
+    init = function()
+      vim.g.no_plugin_maps = true
+    end,
     dependencies = {
-        "nvim-treesitter/nvim-treesitter",
+      "nvim-treesitter/nvim-treesitter",
     },
   },
 }
