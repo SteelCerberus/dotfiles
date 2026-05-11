@@ -13,6 +13,7 @@ systemctl --user enable --now wireplumber
 paru -S --sudoloop --needed \
     google-chrome \
     helium-browser-bin \
+    novnc \
     tmatrix \
     rr-bin \
     pipes.sh
@@ -53,6 +54,7 @@ hyprpm enable hyprexpo
 # Important packages
 sudo pacman -S --noconfirm --needed \
     7zip \
+    amd-ucode \
     base \
     base-devel \
     bat \
@@ -85,7 +87,6 @@ sudo pacman -S --noconfirm --needed \
     hyprsunset \
     hyprutils \
     hyprwayland-scanner \
-    intel-ucode \
     imagemagick \
     kitty \
     lf \
@@ -110,6 +111,7 @@ sudo pacman -S --noconfirm --needed \
     rclone \
     reflector \
     ripgrep \
+    rocm-smi-lib \ # for btop to show AMD GPU
     rofi-wayland \
     sbctl \
     stow \
@@ -117,6 +119,8 @@ sudo pacman -S --noconfirm --needed \
     swayosd \
     texinfo \
     trash-cli \
+    tree-sitter \
+    tree-sitter-cli \
     tty-clock \
     wine \
     wl-clipboard \
@@ -131,6 +135,8 @@ sudo pacman -S --noconfirm --needed \
     blueman \
     docker \
     duf \
+    easyeffects \
+    ffmpeg \
     freerdp \
     gdu \
     ghidra \
@@ -138,8 +144,11 @@ sudo pacman -S --noconfirm --needed \
     gpu-screen-recorder-gtk \
     gthumb \
     keepassxc \
+    lact \
     libreoffice-fresh \
     lolcat \
+    lsp-plugins-lv2 \ # for easyeffects EQ
+    nginx \
     nix \
     ninja \
     noto-fonts-cjk \
@@ -155,6 +164,8 @@ sudo pacman -S --noconfirm --needed \
     virt-viewer \
     vlc \
     vlc-plugins-all \
+    wayvnc \
+    wev \
     wireshark-qt \
     youtube-music \
 

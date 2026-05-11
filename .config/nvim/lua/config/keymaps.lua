@@ -19,14 +19,8 @@ set("i", ";;", "<Esc>mzA;<Esc>`za")
 -- Enter creates new line below
 set('n', '<CR>', "<Cmd>call append(line('.'),     repeat([''], v:count1))<CR>")
 
--- Use Shift + Enter as insert new line above; use as open link in Neorg files
+-- Use Shift + Enter as insert new line above
 set('n', '<S-CR>', "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>")
-vim.api.nvim_create_autocmd("Filetype", {
-    pattern = "norg",
-    callback = function()
-        vim.keymap.set("n", "<S-CR>", "<Plug>(neorg.esupports.hop.hop-link)", { buffer = true })
-    end,
-})
 
 -- I just find this more natural
 set({"n", "x"}, "$", "g_")
