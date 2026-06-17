@@ -22,7 +22,7 @@ opt.smartcase   = true -- Don't ignore case when searching if pattern has upper 
 
 -- Indenting
 opt.expandtab = true
-opt.smartindent = true
+-- opt.smartindent = true
 opt.shiftwidth = 4
 opt.tabstop = 4
 opt.softtabstop = 4

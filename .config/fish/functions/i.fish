@@ -5,7 +5,7 @@ function i -d "Show generic info"
 
     echo "Time:      $(set_color green) $(date +%r)$(set_color normal)"
 
-    if test -f /sys/class/power_supply/BAT0
+    if test -f /sys/class/power_supply/BAT0/capacity
         set -l battery_percentage $(cat /sys/class/power_supply/BAT0/capacity)
         set -l battery_status $(cat /sys/class/power_supply/BAT0/status)
 

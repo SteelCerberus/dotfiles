@@ -17,6 +17,9 @@ configuration {
     display-window:             "";
 	drun-display-format:        "{name}";
 	window-format:              "{w} · {c} · {t}";
+    kb-mode-next:               "Tab";
+    kb-mode-previous:           "Shift+Tab";
+    kb-element-next:            "";
 }
 
 /*****----- Global Properties -----*****/

@@ -31,59 +31,50 @@ return {
     lazy = false,
     branch = "main",
     build = ":TSUpdate",
-    init = function()
-      -- auto-install parsers (no-op if already installed)
-      if vim.fn.executable("tree-sitter") == 1 then
-        vim.defer_fn(function() require("nvim-treesitter").install(ensureInstalled) end, 2000)
-      else
-        local msg = "`tree-sitter-cli` not found. Skipping auto-install of parsers."
-        vim.notify(msg, vim.log.levels.WARN, { title = "Treesitter" })
-      end
+    -- Modern way: pass configurations directly to opts
+    opts = {
+      ensure_installed = ensureInstalled,
+      sync_install = false,
+      auto_install = true,
 
-      -- auto-start highlights & indentation
-      vim.api.nvim_create_autocmd("FileType", {
-        desc = "User: enable treesitter highlighting",
-        callback = function(ctx)
-          -- highlights
-          local hasStarted = pcall(vim.treesitter.start, ctx.buf) -- errors for filetypes with no parser
+      highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = false,
+      },
 
-          -- indent
-          local dontUseTreesitterIndent = { "zsh", "bash", "markdown", "javascript" }
-          if hasStarted and not vim.list_contains(dontUseTreesitterIndent, ctx.match) then
-            vim.bo[ctx.buf].indentexpr = "v:lua.require('nvim-treesitter').indentexpr()"
-          end
-        end,
-      })
-
-      -- comments parser
-      vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
-        desc = "User: highlights for the Treesitter `comments` parser",
-        callback = function()
-          -- FIX todo-comments in languages where LSP overwrites their highlight
-          -- https://github.com/stsewd/tree-sitter-comment/issues/22
-          -- https://github.com/LuaLS/lua-language-server/issues/1809
-          vim.api.nvim_set_hl(0, "@lsp.type.comment", {})
-
-          -- Define `@comment.bold` for `queries/comment/highlights.scm`
-          vim.api.nvim_set_hl(0, "@comment.bold", { bold = true })
-        end,
-      })
-
-      -- `ts_query_ls`: use the custom directory set in the treesitter config
-      local tsDir = require("nvim-treesitter.config").get_install_dir("parser")
-      vim.lsp.config("ts_query_ls", {
-        init_options = { parser_install_directories = { tsDir } },
-      })
-    end,
+      indent = {
+        enable = true,
+      },
+    },
+    -- Use the config function ONLY for your custom autocmds and extra tools
+    -- config = function(_, opts)
+    --   -- Initialize treesitter with the clean opts table above
+    --   require("nvim-treesitter.configs").setup(opts)
+    --
+    --   -- The comments parser and LSP highlights block
+    --   vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
+    --     desc = "User: highlights for the Treesitter `comments` parser",
+    --     callback = function()
+    --       vim.api.nvim_set_hl(0, "@lsp.type.comment", {})
+    --       vim.api.nvim_set_hl(0, "@comment.bold", { bold = true })
+    --     end,
+    --   })
+    --
+    --   -- Modern ts_query_ls server configuration
+    --   local tsDir = require("nvim-treesitter.config").get_install_dir("parser")
+    --   if tsDir and vim.lsp.config then
+    --     vim.lsp.config("ts_query_ls", {
+    --       init_options = { parser_install_directories = { tsDir } },
+    --     })
+    --   end
+    -- end,
   },
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
     branch = "main",
-    init = function()
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    config = function()
       vim.g.no_plugin_maps = true
     end,
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-    },
   },
 }
