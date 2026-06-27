@@ -1,3 +1,5 @@
+# Note to self - a red * next to a file is a tag (see lf -doc), press "t" to toggle
+
 # interpreter for shell commands
 set shell fish
 
@@ -17,12 +19,15 @@ set cursorpreviewfmt "\033[7;2m"
 # show the result of execution of previous commands
 map ` !true
 
-# Opens in full-terminal neovim if a text file; else uses xdg-open
 cmd open ${{
-    if file -i "$fx" | grep -q "text/*"
-        v $fx
-    else
-        xdg-open $fx 2>/dev/null
+    set mime (file --mime-type -b "$fx")
+    switch "$mime"
+        case "application/pdf"
+            google-chrome-stable "$fx"
+        case "image/*"
+            xdg-open "$fx"
+        case "*"
+            v "$fx"
     end
 }}
 
