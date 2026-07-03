@@ -1,6 +1,7 @@
 set disassembly-flavor intel
 set print pretty on
 set debuginfod enabled on
+set follow-fork-mode child
 
 # Update GDB's Python paths with the `sys.path` values of the local
 # Python installation, whether that is system Python or a venv
