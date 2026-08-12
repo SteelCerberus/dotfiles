@@ -15,6 +15,9 @@ local launcher = "rofi -show drun"
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "12")
 hl.env("HYPRCURSOR_THEME", "catppuccin-mocha-dark")
+hl.env("QT_IM_MODULE", "fcitx")
+hl.env("QT_IM_MODULES", "wayland;fcitx;ibus")
+hl.env("XMODIFIERS", "@im=fcitx")
 
 hl.permission({ binary = "/usr/(bin|local/bin)/hyprpm", type = "plugin", mode = "allow" })
 
@@ -52,6 +55,7 @@ hl.define_submap("hyprexpo", function()
     hl.bind("j",      function() hl.plugin.hyprexpo.kb_focus("down") end)
     hl.bind("return", function() hl.plugin.hyprexpo.kb_confirm() end)
     hl.bind("escape", function() hl.plugin.hyprexpo.expo("cancel") end)
+    hl.bind("SUPER + g", function() hl.plugin.hyprexpo.expo("cancel") end)
 end)
 
 hl.curve("myBezier", { type = "bezier", points = { { 0.05, 0.9 }, { 0.1, 1.05 } } })
@@ -177,12 +181,35 @@ hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize())
 
 -- Toggle opaque for active window
 -- If you want terminal fully opaque, also run kitten @ set-background-opacity 1.0
-hl.bind(mainMod .. " + SHIFT + T", hl.dsp.window.set_prop({ prop = "opaque", value = "toggle -q", window = "active" }))
+local function toggle_transparency()
+    local current = hl.get_config("decoration:active_opacity")
+
+    if current and current >= 1.0 then
+        -- Set to transparent (e.g., 0.8)
+        hl.config({
+            decoration = {
+                active_opacity = 0.93,
+                inactive_opacity = 0.7,
+                fullscreen_opacity = 1.0
+            }
+        })
+    else
+        -- Reset to fully opaque (1.0)
+        hl.config({
+            decoration = {
+                active_opacity = 1.0,
+                inactive_opacity = 1.0,
+                fullscreen_opacity = 1.0
+            }
+        })
+    end
+end
+hl.bind(mainMod .. " + SHIFT + T", toggle_transparency)
 
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
 hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.float({ action = "toggle" }))
 
-hl.bind("SUPER + G", function()
+hl.bind(mainMod .. " + G", function()
     hl.plugin.hyprexpo.expo("toggle")
 end)
 
@@ -305,6 +332,7 @@ hl.config({
 })
 
 hl.on("hyprland.start", function()
+    hl.exec_cmd("fcitx5 -d")
     hl.exec_cmd("swaync")
     hl.exec_cmd("hyprpaper")
     hl.exec_cmd("swayosd-server")

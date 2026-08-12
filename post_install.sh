@@ -136,6 +136,11 @@ sudo pacman -S --noconfirm --needed \
     docker \
     duf \
     easyeffects \
+    fcitx5 \
+    fcitx5-mozc \
+    fcitx5-gtk \
+    fcitx5-qt \
+    fcitx5-configtool \
     ffmpeg \
     freerdp \
     gdu \
