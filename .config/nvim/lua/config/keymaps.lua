@@ -53,6 +53,10 @@ set("x", "c", '"_c')
 -- Select the just pasted text
 set("n", "gp", "`[v`]")
 
+-- Auto indent on pasting
+set("n", "p", "p`[v`]=")
+set("n", "P", "P`[v`]=")
+
 set("n", "<c-h>", "<c-w>h", {desc = "Switch between windows"})
 set("n", "<c-j>", "<c-w>j", {desc = "Switch between windows"})
 set("n", "<c-k>", "<c-w>k", {desc = "Switch between windows"})
