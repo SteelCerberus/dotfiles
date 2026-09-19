@@ -116,7 +116,7 @@ hl.bind(mainMod .. " + SHIFT + M", hl.dsp.exit())
 hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("hyprpicker --autocopy"))
 hl.bind(mainMod .. " + V", hl.dsp.layout("togglesplit"))
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("swaync-client -t"))
-hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("[float; size 30% 30%; center 1] " .. terminal .. " fish -c \"tty-clock -Ssct -C 4\""))
+hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("[float; size 1152 648; center] " .. terminal .. " fish -c \"tty-clock -Ssct -C 4\""))
 hl.bind(mainMod .. " + O", hl.dsp.exec_cmd("~/.config/hypr/scripts/open_lf.fish"))
 hl.bind(mainMod .. " + SHIFT + O", hl.dsp.exec_cmd("~/.config/hypr/scripts/open_nvim.fish"))
 
@@ -232,6 +232,16 @@ hl.window_rule({
 })
 
 hl.window_rule({
+    name = "float-and-resize-app",
+    match = {
+        class = "waypaper"
+    },
+    float = true,
+    size = "(monitor_w*0.5) (monitor_h*0.5)",
+    center = true
+})
+
+hl.window_rule({
     name = "fix-xwayland-drags",
     match = {
         class = "^$",
@@ -338,5 +348,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("swayosd-server")
     hl.exec_cmd("systemctl --user start hyprpolkitagent")
     hl.exec_cmd("hyprpm reload")
+    hl.exec_cmd("gsettings set org.gnome.desktop.interface gtk-theme \"Adwaita-dark\"")
+    hl.exec_cmd("gsettings set org.gnome.desktop.interface color-scheme \"prefer-dark\"")
 end)
 

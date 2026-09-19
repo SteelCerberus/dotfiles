@@ -1,0 +1,40 @@
+/* Base window */
+window {
+    background-color: #1e1e2e; /* Catppuccin Base */
+    color: #cdd6f4;            /* Catppuccin Text */
+    font-family: "JetBrainsMonoNF-Regular";
+    border: none;
+}
+
+button:hover {
+    background-image: none;
+    box-shadow: none;
+    border-color: transparent;
+}
+
+button {
+    background-image: none;
+    color: #cdd6f4;
+    border-radius: 6px;
+    box-shadow: none;
+}
+
+.highlighted-button>image, .highlighted-button:hover>image {
+    -gtk-icon-effect: highlight;
+}
+
+.highlighted-button {
+    background-image: none;
+    border-color: #cba6f7; /* Catppuccin Mauve */
+    border-radius: 0px;
+}
+
+/* Top search bar or input box fields */
+entry {
+    background-image: none;
+    background-color: #313244;
+    color: #cdd6f4;
+    border-radius: 6px;
+    border: 1px solid #45475a;
+}
+

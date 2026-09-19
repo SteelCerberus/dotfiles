@@ -122,6 +122,7 @@ sudo pacman -S --noconfirm --needed \
     tree-sitter \
     tree-sitter-cli \
     tty-clock \
+    waypaper \
     wine \
     wl-clipboard \
     wtype \
