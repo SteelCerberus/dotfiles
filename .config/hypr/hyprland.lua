@@ -104,8 +104,8 @@ hl.device({
 
 local mainMod = "SUPER"
 
-hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("fish -c \"randwallpaper ~/.config/hypr/wallpapers\""), { locked = true })
-hl.bind(mainMod .. " + SHIFT + ALT + W", hl.dsp.exec_cmd("fish -c \"randwallpaper ~/.config/papers/other\""), { locked = true })
+hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("fish -c \"cyclewallpaper ~/.config/hypr/wallpapers\""), { locked = true })
+hl.bind(mainMod .. " + SHIFT + ALT + W", hl.dsp.exec_cmd("fish -c \"cyclewallpaper ~/.config/papers/other\""), { locked = true })
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(launcher))
 hl.bind(mainMod .. " + SHIFT + B", hl.dsp.exec_cmd(alternatebrowser))

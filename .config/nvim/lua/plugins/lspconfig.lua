@@ -16,7 +16,7 @@ return {
     'neovim/nvim-lspconfig',
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
-      'williamboman/mason.nvim', -- Removed inline config = true to prevent double initialization
+      'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
@@ -35,6 +35,7 @@ return {
           local map = function(keys, func, desc)
             vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
+
           -- To jump back, press <C-t>
           map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
@@ -51,7 +52,6 @@ return {
           map('<leader>r', vim.lsp.buf.rename, '[R]ename')
 
           -- Execute a code action, usually your cursor needs to be on top of an error
-          -- or a suggestion from your LSP for this to activate.
           map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
           -- View documentation
@@ -95,9 +95,19 @@ return {
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
-      -- Language Servers managed by lspconfig / mason-lspconfig
+      -- Language Servers configuration
       local servers = {
-        clangd = {},
+        clangd = {
+          cmd = {
+            "clangd",
+            "--background-index",
+            "--clang-tidy",
+            "--completion-style=detailed",
+            "--function-arg-placeholders",
+            "--fallback-style=llvm",
+            "--header-insertion=never",
+          },
+        },
         pyright = {},
         zls = {},
         bashls = {},
@@ -107,24 +117,26 @@ return {
       -- Initialize Mason first
       require('mason').setup()
 
-      -- Let mason-lspconfig handle the LSP-specific translations and installations
+      -- Let mason-lspconfig handle the automatic installation mapping
       local ensure_installed = vim.tbl_keys(servers or {})
       require('mason-lspconfig').setup {
         ensure_installed = ensure_installed,
-        handlers = {
-          function(server_name)
-            local server = servers[server_name] or {}
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
-          end,
-        },
       }
+
+      for server_name, server_opts in pairs(servers) do
+        server_opts.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server_opts.capabilities or {})
+
+        -- Native configuration merging
+        vim.lsp.config(server_name, server_opts)
+        -- Enable the server for its target filetypes
+        vim.lsp.enable(server_name)
+      end
 
       -- Use mason-tool-installer ONLY for non-LSP tools (formatters, linters, debuggers)
       require('mason-tool-installer').setup {
         ensure_installed = {
           'stylua',   -- Lua formatter
-          'cpptools', -- C/C++ Debugger (DAP), managed here instead of lspconfig
+          'cpptools', -- C/C++ Debugger (DAP)
         },
       }
     end,

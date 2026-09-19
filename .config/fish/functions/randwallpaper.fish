@@ -2,16 +2,22 @@
 
 function randwallpaper -d "Selects a random wallpaper in the given directory"
     set -l dir $argv[1]
-    set -l active $(hyprctl hyprpaper listactive)
-    set -l active_path $(echo $active | cut -d ' ' -f 3)
-    set -l active_file $(basename $active)
 
-    set -l potentials $(find $dir -type f -not -name $active_file)
-    set -l rand $(random choice $potentials)
+    # Extract active wallpaper path
+    set -l active_path (hyprctl hyprpaper listactive | string match -r '/.*' | head -n 1)
+
+    # Get all files and exclude the exact active path literally (-F)
+    set -l potentials (find $dir -type f | grep -Fv "$active_path")
+
+    if test (count $potentials) -eq 0
+        echo "No alternative wallpapers found in $dir"
+        return 1
+    end
+
+    set -l rand (random choice $potentials)
     echo $rand
 
     hyprctl hyprpaper unload all -q
     hyprctl hyprpaper preload $rand -q
     hyprctl hyprpaper wallpaper ",$rand" -q
 end
-

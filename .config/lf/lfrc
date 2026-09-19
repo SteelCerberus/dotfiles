@@ -34,7 +34,7 @@ cmd open ${{
 # mkdir command. See wiki if you want it to select created dir
 map a :push %mkdir<space>
 
-set previewer ~/.dotfiles/.config/lf/previewer.fish
+set previewer ~/.config/lf/previewer.fish
 
 cmd on-select set user_preview_offset 1
 cmd scroll-preview &{{
@@ -60,7 +60,7 @@ set period 1
 map p :paste; clear
 
 # Shortcuts
-map gc :set hidden; cd ~/.dotfiles/.config
+map gc :set hidden; cd ~/.config
 map gt :set hidden; cd "/mnt/drive/Documents/Georgia Tech/"
 map gf :push %touch<space>
 
