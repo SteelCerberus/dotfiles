@@ -1,6 +1,9 @@
 -- Monitor, keyboard-specific shortcuts
 require("device_specific")
 
+-- Opacity keybinds (more complicated)
+require("opacity")
+
 -- Set programs that you use
 local terminal = "kitty"
 local browser = "helium-browser"
@@ -20,6 +23,8 @@ hl.env("QT_IM_MODULES", "wayland;fcitx;ibus")
 hl.env("XMODIFIERS", "@im=fcitx")
 
 hl.permission({ binary = "/usr/(bin|local/bin)/hyprpm", type = "plugin", mode = "allow" })
+
+local mainMod = "SUPER"
 
 hl.config({
     plugin = {
@@ -55,7 +60,7 @@ hl.define_submap("hyprexpo", function()
     hl.bind("j",      function() hl.plugin.hyprexpo.kb_focus("down") end)
     hl.bind("return", function() hl.plugin.hyprexpo.kb_confirm() end)
     hl.bind("escape", function() hl.plugin.hyprexpo.expo("cancel") end)
-    hl.bind("SUPER + g", function() hl.plugin.hyprexpo.expo("cancel") end)
+    hl.bind(mainMod .. " + g", function() hl.plugin.hyprexpo.expo("cancel") end)
 end)
 
 hl.curve("myBezier", { type = "bezier", points = { { 0.05, 0.9 }, { 0.1, 1.05 } } })
@@ -101,8 +106,6 @@ hl.device({
     name = "epic-mouse-v1",
     sensitivity = -0.5,
 })
-
-local mainMod = "SUPER"
 
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("fish -c \"cyclewallpaper ~/.config/hypr/wallpapers\""), { locked = true })
 hl.bind(mainMod .. " + SHIFT + ALT + W", hl.dsp.exec_cmd("fish -c \"cyclewallpaper ~/.config/papers/other\""), { locked = true })
@@ -179,33 +182,6 @@ hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:mag
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag())
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize())
 
--- Toggle opaque for active window
--- If you want terminal fully opaque, also run kitten @ set-background-opacity 1.0
-local function toggle_transparency()
-    local current = hl.get_config("decoration:active_opacity")
-
-    if current and current >= 1.0 then
-        -- Set to transparent (e.g., 0.8)
-        hl.config({
-            decoration = {
-                active_opacity = 0.93,
-                inactive_opacity = 0.7,
-                fullscreen_opacity = 1.0
-            }
-        })
-    else
-        -- Reset to fully opaque (1.0)
-        hl.config({
-            decoration = {
-                active_opacity = 1.0,
-                inactive_opacity = 1.0,
-                fullscreen_opacity = 1.0
-            }
-        })
-    end
-end
-hl.bind(mainMod .. " + SHIFT + T", toggle_transparency)
-
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
 hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.float({ action = "toggle" }))
 
@@ -226,7 +202,7 @@ hl.window_rule({
 
 hl.window_rule({
     match = {
-        class = "^(ghidra-.*)$",
+        class = "^(ghidra-.*)$|Comfy Desktop",
     },
     opaque = true,
 })
@@ -283,7 +259,7 @@ hl.config({
     decoration = {
         rounding = 15,
         -- Change transparency of focused and unfocused windows
-        active_opacity = 0.93,
+        active_opacity = 1.00,
         inactive_opacity = 0.7,
         shadow = {
             enabled = true,

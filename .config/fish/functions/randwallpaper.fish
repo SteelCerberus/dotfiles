@@ -17,7 +17,8 @@ function randwallpaper -d "Selects a random wallpaper in the given directory"
     set -l rand (random choice $potentials)
     echo $rand
 
-    hyprctl hyprpaper unload all -q
-    hyprctl hyprpaper preload $rand -q
-    hyprctl hyprpaper wallpaper ",$rand" -q
+    # hyprctl hyprpaper unload all -q
+    # hyprctl hyprpaper preload $rand -q
+    # hyprctl hyprpaper wallpaper ",$rand" -q
+    waypaper --wallpaper $rand
 end

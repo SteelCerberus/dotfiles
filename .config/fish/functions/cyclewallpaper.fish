@@ -29,8 +29,9 @@ function cyclewallpaper -d "Cycles to the next wallpaper in the given directory"
     set -l next_wallpaper $files[$next_idx]
     echo $next_wallpaper
 
-    hyprctl hyprpaper unload all -q
-    hyprctl hyprpaper preload $next_wallpaper -q
-    hyprctl hyprpaper wallpaper ",$next_wallpaper" -q
+    # hyprctl hyprpaper unload all -q
+    # hyprctl hyprpaper preload $next_wallpaper -q
+    # hyprctl hyprpaper wallpaper ",$next_wallpaper" -q
+    waypaper --wallpaper $next_wallpaper
 end
 

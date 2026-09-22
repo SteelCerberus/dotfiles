@@ -24,10 +24,11 @@
           },
           "template": " {{ .UpstreamIcon }}{{ .HEAD }}{{ if gt .StashCount 0 }} \ueb4b {{ .StashCount }}{{ end }} ",
           "foreground": "#BB9AF7",
-          "powerline_symbol": "\ue0b0",
+          "leading_diamond": "\ue0d7",
+          "trailing_diamond": "\ue0b0",
           "background": "#303446",
           "type": "git",
-          "style": "powerline"
+          "style": "diamond"
         },
         {
           "properties": {
@@ -37,10 +38,11 @@
           },
           "template": " \ue235 {{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }} {{ end }}{{ .Full }}{{ end }} ",
           "foreground": "#7DCFFF",
-          "powerline_symbol": "\ue0b0",
+          "leading_diamond": "\ue0d7",
+          "trailing_diamond": "\ue0b0",
           "background": "#303446",
           "type": "python",
-          "style": "powerline"
+          "style": "diamond"
         },
         {
           "template": " \uf0e7 ",
