@@ -262,14 +262,14 @@ hl.config({
         active_opacity = 1.00,
         inactive_opacity = 0.7,
         shadow = {
-            enabled = true,
+            enabled = false,
             range = 4,
             render_power = 3,
             color = "rgba(1a1a1aee)",
         },
         -- https://wiki.hyprland.org/Configuring/Variables/#blur
         blur = {
-            enabled = true,
+            enabled = false,
             size = 4,
             passes = 1,
             vibrancy = 0.1696,

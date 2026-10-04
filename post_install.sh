@@ -175,3 +175,7 @@ sudo pacman -S --noconfirm --needed \
     wireshark-qt \
     youtube-music \
 
+
+# Required for some Mason to install LSPs
+npm install tree-sitter tree-sitter-cli
+

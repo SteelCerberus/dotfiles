@@ -30,6 +30,7 @@ pacman -S --noconfirm --needed \
     wget \
     efibootmgr \
     jq \
+    systemd-ukify \
     parted \
 
 ###############################################################################
@@ -140,6 +141,19 @@ Description = Building CachyOS UKI and removing redundant kernel images
 When = PostTransaction
 Exec = /bin/sh -c 'mkinitcpio -p uki && rm -f /boot/vmlinuz-linux-cachyos; rm -f /boot/vmlinuz-linux'
 EOF
+
+cat << 'EOF' > /etc/kernel/uki.conf
+[UKI]
+SignInitrdPCRs=yes
+
+[PCRSignature:all]
+PCRPrivateKey=/etc/systemd/tpm2-pcr-private-key.pem
+PCRPublicKey=/etc/systemd/tpm2-pcr-public-key.pem
+EOF
+
+ukify genkey \
+    --pcr-private-key=/etc/systemd/tpm2-pcr-private-key.pem \
+    --pcr-public-key=/etc/systemd/tpm2-pcr-public-key.pem
 
 # Regenerate all presets to create the UKI
 mkinitcpio -P
