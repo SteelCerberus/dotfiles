@@ -258,6 +258,9 @@ hl.config({
     -- https://wiki.hyprland.org/Configuring/Variables/#decoration
     decoration = {
         rounding = 15,
+        wobble = {
+            enabled = false,
+        },
         -- Change transparency of focused and unfocused windows
         active_opacity = 1.00,
         inactive_opacity = 0.7,
@@ -273,6 +276,7 @@ hl.config({
             size = 4,
             passes = 1,
             vibrancy = 0.1696,
+            variant = "fluid_jar",
         },
     },
     -- Default animations

@@ -129,6 +129,7 @@ sudo pacman -S --noconfirm --needed \
     xdg-desktop-portal-hyprland \
 
 sudo systemctl enable --now cronie
+sudo systemctl disable --now swayosd-libinput-backend
 
 # Optional (nice to have packages, but not used by any dotfiles)
 sudo pacman -S --noconfirm --needed \
